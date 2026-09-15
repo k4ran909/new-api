@@ -236,6 +236,7 @@ export const STATIC_I18N_KEYS = [
   'Less',
 
   // Roles
+  'Root User',
   'Super Admin',
   'Admin',
   'User',
