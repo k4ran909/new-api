@@ -114,15 +114,16 @@ export function PublicHeader(props: PublicHeaderProps) {
   let authContent = (
     <div className='flex items-center gap-2'>
       <Button
+        variant='ghost'
         size='sm'
-        className='h-8 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white px-3.5 text-xs font-medium transition-colors shadow-none'
+        className='h-8 rounded-full border border-border/80 bg-background/50 hover:bg-muted text-foreground px-3.5 text-xs font-medium transition-colors shadow-2xs'
         render={<Link to='/sign-in' />}
       >
         {t('Sign in')}
       </Button>
       <Button
         size='sm'
-        className='h-8 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white px-3.5 text-xs font-medium transition-colors shadow-none'
+        className='h-8 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white px-4 text-xs font-medium transition-all shadow-xs shadow-[#0086ff]/25 hover:shadow-md hover:shadow-[#0086ff]/35'
         render={<Link to='/sign-up' />}
       >
         {t('Sign up')}
@@ -333,13 +334,13 @@ export function PublicHeader(props: PublicHeaderProps) {
                   <div className='flex items-center gap-1.5'>
                     <Link
                       to='/sign-in'
-                      className='h-7 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white px-2.5 text-xs font-medium flex items-center justify-center transition-colors'
+                      className='h-7 rounded-full border border-border/80 bg-background/50 hover:bg-muted text-foreground px-2.5 text-xs font-medium flex items-center justify-center transition-colors'
                     >
                       {t('Sign in')}
                     </Link>
                     <Link
                       to='/sign-up'
-                      className='h-7 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white px-2.5 text-xs font-medium flex items-center justify-center transition-colors'
+                      className='h-7 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white px-3 text-xs font-medium flex items-center justify-center transition-colors shadow-xs'
                     >
                       {t('Sign up')}
                     </Link>

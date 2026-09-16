@@ -6,18 +6,18 @@ import { useSystemConfig } from '@/hooks/use-system-config'
 const PROVIDERS = [
   { name: 'OpenAI', icon: '✦', color: '#10a37f' },
   { name: 'Anthropic', icon: '✳', color: '#d97706' },
-  { name: 'Google', icon: '◆', color: '#2563eb' },
-  { name: 'NVIDIA', icon: '▲', color: '#16a34a' },
-  { name: '···', icon: '•••', color: '#64748b' },
+  { name: 'DeepSeek', icon: '⚡', color: '#2563eb' },
+  { name: 'Google', icon: '◆', color: '#3b82f6' },
+  { name: 'NVIDIA / Meta', icon: '▲', color: '#16a34a' },
 ]
 
 const APPS = [
-  { name: 'OpenClaw', label: 'OpenClaw' },
-  { name: 'OpenCode', label: 'OpenCode' },
-  { name: 'Cherry Studio', label: 'Cherry' },
-  { name: 'Claude Code', label: 'Claude' },
   { name: 'Cursor', label: 'Cursor' },
-  { name: 'Codex', label: 'Codex' },
+  { name: 'Claude Code', label: 'Claude Code' },
+  { name: 'Windsurf', label: 'Windsurf' },
+  { name: 'Cherry Studio', label: 'Cherry Studio' },
+  { name: 'Custom Agents', label: 'Custom Agents' },
+  { name: 'OpenCode', label: 'OpenCode' },
 ]
 
 export function Architecture() {
@@ -42,22 +42,22 @@ export function Architecture() {
         {/* Subtitle */}
         <p className='mt-4 text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed'>
           {t(
-            'Fully OpenAI-compatible, with one base URL and one API key to power OpenClaw, OpenCode, Codex, Claude Code, Cherry Studio, and more — while managing all your token usage in one place.'
+            'Fully OpenAI-compatible, with one base URL and one API key to power Cursor, Claude Code, Windsurf, Cherry Studio, and autonomous agents — while managing all your token usage in one place.'
           )}
         </p>
 
         {/* Interactive Architecture Flow Diagram */}
-        <div className='mt-14 max-w-5xl mx-auto p-6 md:p-10 rounded-2xl border border-border/80 bg-card/50 backdrop-blur-sm shadow-sm'>
+        <div className='mt-14 max-w-5xl mx-auto p-6 md:p-10 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-md shadow-md'>
           <div className='flex flex-col lg:flex-row items-center justify-between gap-8 md:gap-4'>
             {/* Left: Providers */}
             <div className='flex flex-row lg:flex-col gap-2.5 w-full lg:w-48 shrink-0 justify-center flex-wrap lg:flex-nowrap'>
               {PROVIDERS.map((p) => (
                 <div
                   key={p.name}
-                  className='flex items-center gap-2.5 px-3.5 py-2 rounded-xl border border-border/70 bg-card hover:border-[#0086ff]/50 transition-colors shadow-xs'
+                  className='flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-border/70 bg-card hover:border-[#0086ff]/50 transition-colors shadow-xs'
                 >
                   <span
-                    className='size-5 rounded-md flex items-center justify-center text-xs font-bold text-white'
+                    className='size-5 rounded-md flex items-center justify-center text-xs font-bold text-white shrink-0'
                     style={{ backgroundColor: p.color }}
                   >
                     {p.icon}
@@ -78,14 +78,17 @@ export function Architecture() {
             </div>
 
             {/* Center: TokenRouter Hub Node */}
-            <div className='relative shrink-0 my-2 lg:my-0'>
-              <div className='absolute -inset-2 rounded-full bg-[#0086ff]/20 blur-md animate-pulse' />
-              <div className='relative flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#0086ff] text-white shadow-lg border border-white/20'>
-                <div className='size-5 rounded-full bg-white text-[#0086ff] flex items-center justify-center font-bold text-xs'>
+            <div className='relative shrink-0 my-3 lg:my-0 group'>
+              <div className='absolute -inset-3 rounded-full bg-[#0086ff]/25 blur-lg animate-pulse' />
+              <div className='relative flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-[#0086ff] text-white shadow-lg shadow-[#0086ff]/30 border border-white/25'>
+                <div className='size-5 rounded-full bg-white text-[#0086ff] flex items-center justify-center font-bold text-xs shadow-2xs'>
                   ⚡
                 </div>
                 <span className='font-semibold text-sm tracking-tight'>
                   {brandName}
+                </span>
+                <span className='text-[10px] bg-white/20 px-2 py-0.5 rounded-full font-mono font-medium'>
+                  Router
                 </span>
               </div>
             </div>
@@ -131,8 +134,8 @@ export function Architecture() {
         {/* Section Action Button */}
         <div className='mt-8 flex justify-center'>
           <Link
-            to='/sign-in'
-            className='inline-flex items-center gap-2 h-11 px-7 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white font-medium text-sm transition-all shadow-sm hover:shadow-md'
+            to='/sign-up'
+            className='inline-flex items-center gap-2 h-11 px-8 rounded-full bg-[#0086ff] hover:bg-[#0073e6] text-white font-medium text-sm transition-all shadow-[0_4px_14px_rgba(0,134,255,0.35)] hover:shadow-[0_6px_20px_rgba(0,134,255,0.45)] hover:-translate-y-0.5'
           >
             <span>{t('Claim Free Credits')}</span>
             <ArrowRight className='size-4' />

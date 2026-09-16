@@ -239,8 +239,9 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
     )
   } else {
     priceSummary = (
-      <div className='col-span-full flex min-w-0 flex-col gap-1'>
-        <span className='font-mono text-sm font-semibold tabular-nums'>
+      <div className='col-span-full flex items-center justify-between text-xs py-0.5 w-full'>
+        <span className='text-muted-foreground'>{t('Price:')}</span>
+        <span className='font-mono text-sm font-semibold tabular-nums text-[#0086ff] dark:text-[#60a5fa]'>
           {formatRequestPrice(
             props.model,
             showRechargePrice,
@@ -258,7 +259,7 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
   }
 
   return (
-    <Card className='hover:ring-foreground/20 h-full min-w-0 gap-3 transition-colors'>
+    <Card className='border border-border/75 hover:border-[#0086ff]/60 rounded-2xl bg-card hover:shadow-md hover:-translate-y-0.5 h-full min-w-0 gap-3 transition-all duration-200 shadow-2xs'>
       <CardHeader className='flex flex-row items-start gap-3'>
         <div
           aria-hidden

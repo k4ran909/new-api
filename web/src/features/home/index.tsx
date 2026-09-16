@@ -28,6 +28,7 @@ import { useAuthStore } from '@/stores/auth-store'
 
 import {
   Architecture,
+  CodePreview,
   CTA,
   Faq,
   Features,
@@ -132,6 +133,7 @@ export function Home() {
       <Hero isAuthenticated={isAuthenticated} />
       <TrustedBy />
       <Architecture />
+      <CodePreview />
       <Features />
       <Faq />
       <CTA isAuthenticated={isAuthenticated} />
