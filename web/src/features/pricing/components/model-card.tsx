@@ -207,32 +207,36 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
     )
   } else if (isTokenBased) {
     const prices: { type: PriceType; label: string }[] = [
-      { type: 'input', label: t('Input') },
-      { type: 'output', label: t('Output') },
+      { type: 'input', label: t('Input Price:') },
+      { type: 'output', label: t('Output Price:') },
       ...(props.model.cache_ratio != null
-        ? [{ type: 'cache' as const, label: t('Cached') }]
+        ? [{ type: 'cache' as const, label: t('Cache Read:') }]
         : []),
     ]
-    priceSummary = prices.map((price) => (
-      <div key={price.type} className='flex min-w-0 flex-col gap-1'>
-        <span className='text-muted-foreground text-xs'>{price.label}</span>
-        <span className='font-mono text-sm font-semibold tabular-nums'>
-          {formatPrice(
-            props.model,
-            price.type,
-            tokenUnit,
-            showRechargePrice,
-            priceRate,
-            usdExchangeRate,
-            props.selectedGroup
-          )}
-          <span className='text-muted-foreground text-xs font-normal'>
-            {' '}
-            / {tokenUnitLabel}
-          </span>
-        </span>
+    priceSummary = (
+      <div className='col-span-full flex flex-col gap-1 w-full'>
+        {prices.map((price) => (
+          <div key={price.type} className='flex items-center justify-between text-xs py-0.5'>
+            <span className='text-muted-foreground'>{price.label}</span>
+            <span className='font-mono text-sm font-semibold tabular-nums text-[#0086ff] dark:text-[#60a5fa]'>
+              {formatPrice(
+                props.model,
+                price.type,
+                tokenUnit,
+                showRechargePrice,
+                priceRate,
+                usdExchangeRate,
+                props.selectedGroup
+              )}
+              <span className='text-muted-foreground text-xs font-normal'>
+                {' '}
+                / {tokenUnitLabel} Tokens
+              </span>
+            </span>
+          </div>
+        ))}
       </div>
-    ))
+    )
   } else {
     priceSummary = (
       <div className='col-span-full flex min-w-0 flex-col gap-1'>

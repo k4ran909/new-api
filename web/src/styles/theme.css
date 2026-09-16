@@ -19,7 +19,10 @@ For commercial licensing, please contact support@quantumnous.com
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: 'Public Sans', sans-serif;
+  --font-sans:
+    'PP Neue Montreal', 'Public Sans', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
   /* Editorial serif token — the body face used by the `serif` font axis
    * and by presets that opt in (currently Anthropic). Lora carries only
    * Latin glyphs, so the stack walks through CJK serifs (Noto / Source Han
@@ -109,8 +112,11 @@ For commercial licensing, please contact support@quantumnous.com
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.692 0.141 243.716);
+  --primary: oklch(0.623 0.214 252);
   --primary-foreground: oklch(1 0 0);
+  --tokenrouter-blue: #0086ff;
+  --tokenrouter-blue-hover: #006fd6;
+  --tokenrouter-blue-subtle: #eef6ff;
   --secondary: oklch(0.95 0 0);
   --secondary-foreground: oklch(0.42 0.16 250);
   --muted: oklch(0.97 0 0);
@@ -185,9 +191,11 @@ For commercial licensing, please contact support@quantumnous.com
   --card: oklch(0.285 0 0);
   --card-foreground: oklch(0.965 0 0);
   --popover: oklch(0.305 0 0);
-  --popover-foreground: oklch(0.965 0 0);
-  --primary: oklch(0.54 0.142 248.516);
+  --primary: oklch(0.623 0.214 252);
   --primary-foreground: oklch(1 0 0);
+  --tokenrouter-blue: #0086ff;
+  --tokenrouter-blue-hover: #006fd6;
+  --tokenrouter-blue-subtle: #1e293b;
   --secondary: oklch(0.335 0 0);
   --secondary-foreground: oklch(0.9 0.05 250);
   --muted: oklch(0.305 0 0);

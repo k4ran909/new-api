@@ -1,34 +1,14 @@
-/*
-Copyright (C) 2023-2026 QuantumNous
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-For commercial licensing, please contact support@quantumnous.com
-*/
 import {
-  Zap,
-  Shield,
-  Globe,
-  Code,
-  Gauge,
-  DollarSign,
+  Sparkles,
+  Receipt,
   Users,
-  HeartHandshake,
+  GitFork,
+  BarChart3,
+  FileCheck2,
+  Globe2,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-
-import { AnimateInView } from '@/components/animate-in-view'
+import { Link } from '@tanstack/react-router'
 
 interface FeaturesProps {
   className?: string
@@ -37,202 +17,125 @@ interface FeaturesProps {
 export function Features(_props: FeaturesProps) {
   const { t } = useTranslation()
 
-  const features = [
+  const ENTERPRISE_CARDS = [
     {
-      id: 'fast',
-      num: '01',
-      title: t('Lightning Fast'),
+      id: 'billing',
+      icon: <Receipt className='size-5 text-[#0086ff]' />,
+      title: t('Centralized Billing and Admin Control'),
       desc: t(
-        'Optimized network architecture ensures millisecond response times'
+        'Run all company usage under one organization account with unified billing, unified permissions, and no more individual recharge or reimbursement workflows.'
       ),
-      span: 'md:col-span-2',
-      icon: <Zap className='size-4 text-blue-400' />,
-      visual: (
-        <div className='mt-4 grid grid-cols-3 gap-2'>
-          {['OpenAI', 'Claude', 'Gemini', 'DeepSeek', 'Qwen', 'Llama'].map(
-            (name) => (
-              <div
-                key={name}
-                className='border-border/30 bg-muted/20 text-muted-foreground flex items-center justify-center rounded-lg border px-3 py-2 text-xs transition-colors duration-300 hover:border-blue-500/30 hover:bg-blue-500/5'
-              >
-                {name}
-              </div>
-            )
-          )}
-        </div>
-      ),
+      tags: [t('Unified Billing'), t('Org Admin'), t('No Reimbursement')],
     },
     {
-      id: 'secure',
-      num: '02',
-      title: t('Secure & Reliable'),
+      id: 'quota',
+      icon: <Users className='size-5 text-[#0086ff]' />,
+      title: t('Granular Quota by Member or Department'),
       desc: t(
-        'Enterprise-grade security with comprehensive permission management'
+        'Set, adjust, and monitor quota at different levels. Allocate usage budgets in real time by user, by team, or by department as business needs change.'
       ),
-      span: 'md:col-span-1',
-      icon: <Shield className='size-4 text-emerald-400' />,
-      visual: (
-        <div className='mt-4 flex items-center justify-center'>
-          <div className='relative'>
-            <div className='flex size-16 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/5'>
-              <Shield
-                className='size-7 text-emerald-500/70'
-                strokeWidth={1.5}
-              />
-            </div>
-            <div className='absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-emerald-500'>
-              <svg
-                className='size-2.5 text-white'
-                fill='none'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-                strokeWidth={3}
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='m4.5 12.75 6 6 9-13.5'
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
+      tags: [t('Quota Control'), t('Per Team'), t('Real-Time Allocation')],
+    },
+    {
+      id: 'failover',
+      icon: <GitFork className='size-5 text-[#0086ff]' />,
+      title: t('Always-On Routing with Multi-Channel Failover'),
+      desc: t(
+        'Combines multiple upstream providers with owned inference capacity, enabling automatic failover when one route degrades or becomes unavailable.'
       ),
+      tags: [t('Failover'), t('Multi-Upstream'), t('High Availability')],
     },
     {
-      id: 'global',
-      num: '03',
-      title: t('Global Coverage'),
-      desc: t('Multi-region deployment for stable global access'),
-      span: 'md:col-span-1',
-      icon: <Globe className='size-4 text-violet-400' />,
-      visual: (
-        <div className='mt-4 space-y-2'>
-          {[t('Load Balancing'), t('Rate Limiting'), t('Cost Tracking')].map(
-            (step, i) => (
-              <div key={step} className='flex items-center gap-2'>
-                <div
-                  className={`flex size-6 items-center justify-center rounded-full text-[10px] font-bold ${
-                    i === 1
-                      ? 'border border-blue-500/30 bg-blue-500/20 text-blue-500'
-                      : 'border-border/40 bg-muted text-muted-foreground border'
-                  }`}
-                >
-                  {i + 1}
-                </div>
-                <div className='bg-border/40 h-px flex-1' />
-                <span className='text-muted-foreground text-xs'>{step}</span>
-              </div>
-            )
-          )}
-        </div>
+      id: 'analytics',
+      icon: <BarChart3 className='size-5 text-[#0086ff]' />,
+      title: t('Organization-Wide Analytics and Usage Insights'),
+      desc: t(
+        'Track activity, cost, and usage trends across the company. Analyze adoption by model, by member, and by time period with clear multi-dimensional dashboards.'
       ),
+      tags: [t('Usage Trends'), t('Model Analytics'), t('Team Activity')],
     },
     {
-      id: 'developer',
-      num: '04',
-      title: t('Developer Friendly'),
-      desc: t('Compatible API routes for common AI application workflows'),
-      span: 'md:col-span-2',
-      icon: <Code className='size-4 text-amber-400' />,
-      visual: (
-        <div className='mt-4 flex items-center gap-3'>
-          <div className='flex -space-x-2'>
-            {['API', 'SDK', 'CLI', 'Docs'].map((n) => (
-              <div
-                key={n}
-                className='border-background from-muted to-muted/60 text-muted-foreground flex size-8 items-center justify-center rounded-full border-2 bg-gradient-to-br text-[9px] font-bold'
-              >
-                {n}
-              </div>
-            ))}
-          </div>
-          <div className='text-muted-foreground flex items-center gap-1.5 text-xs'>
-            <Code className='size-3.5 text-blue-500' />
-            {t('Multi-protocol Compatible')}
-          </div>
-        </div>
+      id: 'audit',
+      icon: <FileCheck2 className='size-5 text-[#0086ff]' />,
+      title: t('Audit-Ready Logs and Full Traceability'),
+      desc: t(
+        'Every request, token spend, and access record can be traced back to the user and model involved, supporting internal governance, review, and operational auditing.'
       ),
-    },
-  ]
-
-  const additionalFeatures = [
-    {
-      icon: <Gauge className='size-5' strokeWidth={1.5} />,
-      title: t('High Performance'),
-      desc: t('Support for high concurrency with automatic load balancing'),
+      tags: [t('Audit Logs'), t('Cost Traceability'), t('Access Records')],
     },
     {
-      icon: <DollarSign className='size-5' strokeWidth={1.5} />,
-      title: t('Transparent Billing'),
-      desc: t('Pay-as-you-go with real-time usage monitoring'),
-    },
-    {
-      icon: <Users className='size-5' strokeWidth={1.5} />,
-      title: t('Team Collaboration'),
-      desc: t('Multi-user management with flexible permission allocation'),
-    },
-    {
-      icon: <HeartHandshake className='size-5' strokeWidth={1.5} />,
-      title: t('Open Source'),
-      desc: t('Community driven, self-hosted, and extensible'),
+      id: 'delivery',
+      icon: <Globe2 className='size-5 text-[#0086ff]' />,
+      title: t('Global Delivery for High Concurrency and Low Latency'),
+      desc: t(
+        'Global service nodes and close collaboration with model providers help deliver stable capacity, better concurrency handling, and lower-latency access across regions.'
+      ),
+      tags: [t('Global Nodes'), t('Low Latency'), t('High Concurrency')],
     },
   ]
 
   return (
-    <section className='relative z-10 px-6 py-24 md:py-32'>
-      <div className='mx-auto max-w-6xl'>
-        <AnimateInView className='mb-16 max-w-lg'>
-          <p className='text-muted-foreground mb-3 text-xs font-medium tracking-widest uppercase'>
-            {t('Core Features')}
-          </p>
-          <h2 className='text-2xl leading-tight font-bold tracking-tight md:text-3xl'>
-            {t('Built for developers,')}
-            <br />
-            {t('designed for scale')}
-          </h2>
-        </AnimateInView>
-
-        {/* Bento grid */}
-        <div className='border-border/40 bg-border/40 grid gap-px overflow-hidden rounded-xl border md:grid-cols-3'>
-          {features.map((f, i) => (
-            <AnimateInView
-              key={f.id}
-              delay={i * 100}
-              animation='scale-in'
-              className={`bg-background group hover:bg-muted/20 p-7 transition-colors duration-300 md:p-8 ${f.span}`}
-            >
-              <div className='mb-3 flex items-center gap-3'>
-                <span className='border-border/40 bg-muted text-muted-foreground flex size-7 items-center justify-center rounded-md border text-[10px] font-semibold tabular-nums'>
-                  {f.num}
-                </span>
-                <h3 className='text-sm font-semibold'>{f.title}</h3>
-              </div>
-              <p className='text-muted-foreground text-sm leading-relaxed'>
-                {f.desc}
-              </p>
-              {f.visual}
-            </AnimateInView>
-          ))}
+    <section className='relative z-10 py-20 md:py-28 bg-card/30'>
+      <div className='mx-auto max-w-7xl px-6'>
+        {/* Category Pill Badge */}
+        <div className='flex justify-start mb-4'>
+          <div className='inline-flex items-center gap-1.5 rounded-full bg-[#eef6ff] dark:bg-[#0086ff]/10 border border-[#0086ff]/20 px-3 py-1 text-xs font-semibold tracking-wider text-[#0086ff] uppercase'>
+            <Sparkles className='size-3.5' />
+            <span>{t('ENTERPRISE-READY')}</span>
+          </div>
         </div>
 
-        {/* Additional features row */}
-        <div className='mt-12 grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12'>
-          {additionalFeatures.map((f, i) => (
-            <AnimateInView
-              key={f.title}
-              delay={i * 100}
-              animation='fade-up'
-              className='flex flex-col items-center text-center'
+        {/* Section Heading */}
+        <h2 className='text-3xl sm:text-4xl md:text-5xl lg:text-[60px] font-medium tracking-tight text-foreground leading-[1.12] max-w-3xl'>
+          {t('Simple to Start, Powerful at Enterprise Scale')}
+        </h2>
+
+        {/* Subtitle & Sales Link */}
+        <p className='mt-4 text-base sm:text-lg text-muted-foreground max-w-3xl leading-relaxed'>
+          {t(
+            'Start with simple model access. Add centralized billing, granular quota controls, audit-ready logs, and organization-wide visibility as your usage grows.'
+          )}{' '}
+          <Link to='/about' className='text-[#0086ff] hover:underline font-medium inline-block'>
+            {t('Already at scale? Talk to sales.')}
+          </Link>
+        </p>
+
+        {/* 6 Enterprise Cards Grid */}
+        <div className='mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          {ENTERPRISE_CARDS.map((card) => (
+            <div
+              key={card.id}
+              className='group flex flex-col justify-between p-7 md:p-8 rounded-2xl border border-border/80 bg-card hover:border-[#0086ff]/40 transition-all duration-200 shadow-xs hover:shadow-sm'
             >
-              <div className='text-muted-foreground border-border/50 bg-muted/30 group-hover:text-foreground mb-3 flex size-12 items-center justify-center rounded-xl border transition-colors'>
-                {f.icon}
+              <div>
+                {/* Icon Badge */}
+                <div className='size-11 rounded-full bg-[#eef6ff] dark:bg-[#0086ff]/10 flex items-center justify-center mb-6 shadow-2xs'>
+                  {card.icon}
+                </div>
+
+                {/* Card Title */}
+                <h3 className='text-lg md:text-xl font-semibold text-foreground tracking-tight mb-3'>
+                  {card.title}
+                </h3>
+
+                {/* Card Description */}
+                <p className='text-sm md:text-[15px] text-muted-foreground leading-relaxed'>
+                  {card.desc}
+                </p>
               </div>
-              <h3 className='mb-1.5 text-sm font-semibold'>{f.title}</h3>
-              <p className='text-muted-foreground max-w-[200px] text-xs leading-relaxed'>
-                {f.desc}
-              </p>
-            </AnimateInView>
+
+              {/* Pill Tags Row */}
+              <div className='mt-8 flex flex-wrap gap-2 pt-4 border-t border-border/40'>
+                {card.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className='inline-flex items-center rounded-full bg-muted/60 dark:bg-muted/40 border border-border/50 px-2.5 py-1 text-[11px] font-medium text-muted-foreground'
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </div>

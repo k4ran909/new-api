@@ -730,3 +730,58 @@ For commercial licensing, please contact support@quantumnous.com
     display: none;
   }
 }
+
+/* ── TokenRouter Design Utilities ────────────────────────────────────────── */
+.btn-pill-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: #0086ff;
+  color: #ffffff;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+.btn-pill-primary:hover {
+  background-color: #006fd6;
+}
+.btn-pill-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: transparent;
+  border: 1px solid #dbe2ea;
+  color: #121317;
+  font-weight: 500;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.dark .btn-pill-secondary {
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #f8fafc;
+}
+.btn-pill-secondary:hover {
+  background-color: #f8fafc;
+}
+.dark .btn-pill-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.badge-tokenrouter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 9999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background-color: #eef6ff;
+  color: #0086ff;
+  border: 1px solid rgba(0, 134, 255, 0.2);
+}
+.dark .badge-tokenrouter {
+  background-color: rgba(0, 134, 255, 0.15);
+  color: #60a5fa;
+  border-color: rgba(0, 134, 255, 0.3);
+}
+

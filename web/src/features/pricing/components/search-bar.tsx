@@ -55,14 +55,14 @@ export function SearchBar(props: SearchBarProps) {
       <input
         ref={inputRef}
         type='text'
-        placeholder={props.placeholder || t('Search models...')}
+        placeholder={props.placeholder || t('Fuzzy search model name')}
         value={props.value}
         onChange={(e) => props.onChange(e.target.value)}
         className={cn(
-          'border-border/60 bg-background placeholder:text-muted-foreground/50',
+          'border-border/70 bg-background placeholder:text-muted-foreground/60',
           'hover:border-border',
-          'focus:border-primary/50 focus:ring-primary/20 focus:ring-2',
-          'h-10 w-full rounded-lg border pr-16 pl-10 text-sm transition-all outline-none'
+          'focus:border-[#0086ff] focus:ring-[#0086ff]/20 focus:ring-2',
+          'h-10 w-full rounded-full border pr-16 pl-10 text-sm transition-all outline-hidden'
         )}
         aria-label={t('Search models')}
       />

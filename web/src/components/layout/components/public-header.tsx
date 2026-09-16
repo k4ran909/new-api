@@ -36,6 +36,7 @@ import { useAuthStore } from '@/stores/auth-store'
 
 import { defaultTopNavLinks } from '../config/top-nav.config'
 import type { TopNavLink } from '../types'
+import { AnnouncementBanner } from './announcement-banner'
 import { HeaderLogo } from './header-logo'
 
 const AUTH_PROMPT_SECONDS = 5
@@ -111,16 +112,25 @@ export function PublicHeader(props: PublicHeaderProps) {
   if (loading) logoContent = <Skeleton className='size-full rounded-lg' />
 
   let authContent = (
-    <Button
-      size='sm'
-      className='h-8 rounded-lg px-3.5 text-xs font-medium'
-      render={<Link to='/sign-in' />}
-    >
-      {t('Sign in')}
-    </Button>
+    <div className='flex items-center gap-2'>
+      <Button
+        size='sm'
+        className='h-8 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white px-3.5 text-xs font-medium transition-colors shadow-none'
+        render={<Link to='/sign-in' />}
+      >
+        {t('Sign in')}
+      </Button>
+      <Button
+        size='sm'
+        className='h-8 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white px-3.5 text-xs font-medium transition-colors shadow-none'
+        render={<Link to='/sign-up' />}
+      >
+        {t('Sign up')}
+      </Button>
+    </div>
   )
   if (isAuthenticated) authContent = <ProfileDropdown />
-  if (loading) authContent = <Skeleton className='h-8 w-20 rounded-lg' />
+  if (loading) authContent = <Skeleton className='h-8 w-28 rounded-full' />
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -200,10 +210,13 @@ export function PublicHeader(props: PublicHeaderProps) {
   return (
     <>
       <header className='pointer-events-none fixed inset-x-0 top-0 z-50'>
+        <div className='pointer-events-auto'>
+          <AnnouncementBanner />
+        </div>
         <div
           className={cn(
             'pointer-events-auto mx-auto transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
-            scrolled ? 'max-w-[52rem] px-3 pt-3' : 'max-w-7xl px-4 pt-0 md:px-6'
+            scrolled ? 'max-w-[52rem] px-3 pt-2' : 'max-w-7xl px-4 pt-1 md:px-6'
           )}
         >
           <nav
@@ -311,10 +324,27 @@ export function PublicHeader(props: PublicHeaderProps) {
             </div>
 
             {/* Mobile: compact actions + hamburger */}
-            <div className='flex shrink-0 items-center gap-2 lg:hidden'>
+            <div className='flex shrink-0 items-center gap-1.5 lg:hidden'>
               {showThemeSwitch && <ThemeSwitch />}
-              {showAuthButtons && !loading && isAuthenticated && (
-                <ProfileDropdown />
+              {showAuthButtons && !loading && (
+                isAuthenticated ? (
+                  <ProfileDropdown />
+                ) : (
+                  <div className='flex items-center gap-1.5'>
+                    <Link
+                      to='/sign-in'
+                      className='h-7 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white px-2.5 text-xs font-medium flex items-center justify-center transition-colors'
+                    >
+                      {t('Sign in')}
+                    </Link>
+                    <Link
+                      to='/sign-up'
+                      className='h-7 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white px-2.5 text-xs font-medium flex items-center justify-center transition-colors'
+                    >
+                      {t('Sign up')}
+                    </Link>
+                  </div>
+                )
               )}
               <Button
                 type='button'

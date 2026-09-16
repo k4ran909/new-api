@@ -166,58 +166,58 @@ export function Footer(props: FooterProps) {
   const fallbackColumns = useMemo<FooterColumnProps[]>(
     () => [
       {
-        title: t('footer.columns.about.title'),
+        title: 'Product',
         links: [
           {
-            text: t('footer.columns.about.links.aboutProject'),
-            href: 'https://docs.newapi.pro/wiki/project-introduction/',
+            text: 'Models & Pricing',
+            href: '/pricing',
           },
           {
-            text: t('footer.columns.about.links.contact'),
-            href: 'https://docs.newapi.pro/support/community-interaction/',
+            text: 'API Documentation',
+            href: 'https://docs.newapi.pro/api/',
           },
           {
-            text: t('footer.columns.about.links.features'),
-            href: 'https://docs.newapi.pro/wiki/features-introduction/',
+            text: 'Console / Dashboard',
+            href: '/dashboard',
           },
         ],
       },
       {
-        title: t('footer.columns.docs.title'),
+        title: 'Resources',
         links: [
           {
-            text: t('footer.columns.docs.links.quickStart'),
+            text: 'Quick Start',
             href: 'https://docs.newapi.pro/getting-started/',
           },
           {
-            text: t('footer.columns.docs.links.installation'),
-            href: 'https://docs.newapi.pro/installation/',
+            text: 'System Status',
+            href: '/status',
           },
           {
-            text: t('footer.columns.docs.links.apiDocs'),
-            href: 'https://docs.newapi.pro/api/',
+            text: 'GitHub Repository',
+            href: 'https://github.com/k4ran909/new-api',
           },
         ],
       },
       {
-        title: t('footer.columns.related.title'),
+        title: 'Support',
         links: [
           {
-            text: t('footer.columns.related.links.oneApi'),
-            href: 'https://github.com/songquanpeng/one-api',
+            text: 'Community Support',
+            href: 'https://docs.newapi.pro/support/community-interaction/',
           },
           {
-            text: t('footer.columns.related.links.midjourney'),
-            href: 'https://github.com/novicezk/midjourney-proxy',
+            text: 'User Agreement',
+            href: '/user-agreement',
           },
           {
-            text: t('footer.columns.related.links.newApiKeyTool'),
-            href: 'https://github.com/Calcium-Ion/new-api-key-tool',
+            text: 'Privacy Policy',
+            href: '/privacy-policy',
           },
         ],
       },
     ],
-    [t]
+    []
   )
 
   const displayColumns = props.columns ?? fallbackColumns
@@ -253,41 +253,49 @@ export function Footer(props: FooterProps) {
       <div className='mx-auto max-w-6xl px-6 py-12 md:py-16'>
         <div className='flex flex-col justify-between gap-10 md:flex-row md:gap-16'>
           {/* Brand column */}
-          <div className='shrink-0'>
+          <div className='shrink-0 max-w-sm'>
             <Link to='/' className='group flex items-center gap-2.5'>
               <img
                 src={displayLogo}
                 alt={displayName}
                 className='size-7 rounded-lg object-contain'
               />
-              <span className='text-sm font-semibold tracking-tight'>
+              <span className='text-base font-bold tracking-tight'>
                 {displayName}
               </span>
             </Link>
-            <p className='text-muted-foreground/60 mt-3 max-w-[200px] text-xs leading-relaxed'>
-              {t('Powerful API Management Platform')}
+            <p className='text-muted-foreground mt-3 max-w-[280px] text-xs leading-relaxed'>
+              Unified endpoint for 100+ LLMs with smart routing, enterprise security, and 99.9% uptime.
             </p>
+            <div className='mt-4'>
+              <a
+                href='https://docs.newapi.pro/support/community-interaction/'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-border/80 bg-background text-xs font-medium text-foreground hover:border-[#0086ff] hover:text-[#0086ff] transition-colors shadow-xs'
+              >
+                Contact Support <span className='text-[10px]'>↗</span>
+              </a>
+            </div>
           </div>
 
           {/* Links columns */}
-          {isDemoSiteMode && (
-            <div className='grid grid-cols-3 gap-8 md:gap-16'>
-              {displayColumns.map((column, index) => (
-                <div key={index}>
-                  <p className='text-muted-foreground/50 mb-3 text-xs font-medium tracking-wider uppercase'>
-                    {t(column.title)}
-                  </p>
-                  <ul className='space-y-2.5'>
-                    {column.links.map((link, linkIndex) => (
-                      <li key={linkIndex}>
-                        <FooterLinkItem link={link} />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          )}
+          <div className='grid grid-cols-2 gap-8 sm:grid-cols-3 md:gap-16'>
+            {displayColumns.map((column, index) => (
+              <div key={index}>
+                <p className='text-muted-foreground/60 mb-3 text-xs font-semibold tracking-wider uppercase'>
+                  {t(column.title)}
+                </p>
+                <ul className='space-y-2.5'>
+                  {column.links.map((link, linkIndex) => (
+                    <li key={linkIndex}>
+                      <FooterLinkItem link={link} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Copyright + optional legal links inline on the left, project

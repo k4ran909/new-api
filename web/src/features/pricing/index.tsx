@@ -177,29 +177,48 @@ export function Pricing() {
           }}
         />
         <PageTransition className='relative mx-auto w-full max-w-[1800px] px-3 pt-16 pb-8 sm:px-6 sm:pt-20 sm:pb-10 xl:px-8'>
-          <header className='mx-auto mb-5 max-w-3xl pt-5 text-center sm:mb-10 sm:pt-10'>
-            <h1 className='text-[clamp(2rem,5.5vw,3.5rem)] leading-[1.15] font-bold tracking-tight'>
-              {t('Model Square')}
-            </h1>
-            <p className='text-muted-foreground/80 mt-3 text-sm sm:mt-4 sm:text-base'>
-              {t('This site currently has {{count}} models enabled', {
-                count: models?.length || 0,
-              })}
+          <header className='mx-auto mb-6 max-w-5xl pt-6 text-left sm:mb-8 sm:pt-8'>
+            <div className='flex items-center gap-3'>
+              <h1 className='text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-foreground'>
+                {t('All Models')}
+              </h1>
+              <span className='inline-flex items-center rounded-full bg-muted/80 border border-border/60 px-3 py-1 text-xs font-semibold text-muted-foreground'>
+                {t('{{count}} Models', { count: models?.length || 0 })}
+              </span>
+            </div>
+            <p className='text-muted-foreground mt-2 text-sm sm:text-base'>
+              {t('One Router, All Models — Better Pricing, Better Stability.')}
             </p>
-            <p className='text-muted-foreground/60 mx-auto mt-2 max-w-2xl text-xs leading-relaxed sm:text-sm'>
-              {t(
-                'Discover curated AI models, compare pricing and capabilities, and choose the right model for every scenario.'
-              )}
-            </p>
-            <SearchBar
-              value={searchInput}
-              onChange={setSearchInput}
-              onClear={clearSearch}
-              placeholder={t(
-                'Search model name, provider, endpoint, or tag...'
-              )}
-              className='mx-auto mt-4 max-w-2xl sm:mt-6'
-            />
+            <div className='mt-6 flex flex-col md:flex-row items-stretch md:items-center gap-3'>
+              <SearchBar
+                value={searchInput}
+                onChange={setSearchInput}
+                onClear={clearSearch}
+                placeholder={t('Fuzzy search model name')}
+                className='w-full md:max-w-md'
+              />
+              {/* Modality Quick Filter Pills */}
+              <div className='flex flex-wrap items-center gap-1.5'>
+                {['text', 'embedding', 'image', 'video', 'audio'].map((type) => {
+                  const isActive = endpointTypeFilter.toLowerCase() === type
+                  return (
+                    <button
+                      key={type}
+                      type='button'
+                      onClick={() => setEndpointTypeFilter(isActive ? '' : type)}
+                      className={cn(
+                        'h-8 px-3 rounded-full text-xs font-medium border transition-colors cursor-pointer capitalize',
+                        isActive
+                          ? 'border-[#0086ff] bg-[#eef6ff] text-[#0086ff] dark:bg-[#0086ff]/20 dark:text-[#60a5fa]'
+                          : 'border-border/70 bg-card hover:bg-muted text-foreground/80'
+                      )}
+                    >
+                      {type} {isActive && '×'}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
           </header>
 
           <div className='grid gap-4 xl:grid-cols-[280px_minmax(0,1fr)]'>
