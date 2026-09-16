@@ -105,11 +105,11 @@ export function Features(_props: FeaturesProps) {
           {ENTERPRISE_CARDS.map((card) => (
             <div
               key={card.id}
-              className='group flex flex-col justify-between p-7 md:p-8 rounded-2xl border border-border/80 bg-card hover:border-[#0086ff]/40 transition-all duration-200 shadow-xs hover:shadow-sm'
+              className='group relative flex flex-col justify-between p-7 md:p-8 rounded-2xl border border-border/80 bg-card hover:border-[#0086ff]/60 hover:shadow-[0_12px_36px_rgba(0,134,255,0.09)] hover:-translate-y-1 transition-all duration-300 shadow-xs'
             >
               <div>
                 {/* Icon Badge */}
-                <div className='size-11 rounded-full bg-[#eef6ff] dark:bg-[#0086ff]/10 flex items-center justify-center mb-6 shadow-2xs'>
+                <div className='size-11 rounded-full bg-[#0086ff]/10 dark:bg-[#0086ff]/20 flex items-center justify-center mb-6 shadow-2xs group-hover:scale-110 group-hover:bg-[#0086ff]/15 transition-all duration-300'>
                   {card.icon}
                 </div>
 

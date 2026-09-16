@@ -178,12 +178,22 @@ export function Pricing() {
           }}
         />
         <PageTransition className='relative mx-auto w-full max-w-[1800px] px-3 pt-16 pb-8 sm:px-6 sm:pt-20 sm:pb-10 xl:px-8'>
+          {/* Subtle Ambient Glow */}
+          <div
+            aria-hidden
+            className='pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 size-[650px] rounded-full bg-[#0086ff]/10 blur-[130px] -z-10'
+          />
+
           <header className='mx-auto mb-6 max-w-5xl pt-6 text-left sm:mb-8 sm:pt-8'>
+            <div className='inline-flex items-center gap-1.5 rounded-full bg-[#0086ff]/10 border border-[#0086ff]/25 px-3 py-0.5 text-xs font-semibold tracking-wide text-[#0086ff] mb-3'>
+              <span>✦ MODEL DIRECTORY & PRICING</span>
+            </div>
+
             <div className='flex items-center gap-3'>
               <h1 className='text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-foreground'>
                 {t('All Models')}
               </h1>
-              <span className='inline-flex items-center rounded-full bg-muted/80 border border-border/60 px-3 py-1 text-xs font-semibold text-muted-foreground'>
+              <span className='inline-flex items-center rounded-full bg-[#0086ff]/10 border border-[#0086ff]/25 px-3 py-1 text-xs font-semibold text-[#0086ff]'>
                 {t('{{count}} Models', { count: models?.length || 0 })}
               </span>
             </div>
