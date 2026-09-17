@@ -24,6 +24,11 @@ import { requireServerSuccess } from '@/lib/server-error-message'
 
 import { getPricing } from '../api'
 
+import {
+  DEFAULT_FOUNDATION_MODELS,
+  DEFAULT_VENDORS,
+} from '../constants/default-catalog'
+
 export function usePricingData(enabled = true) {
   const { status } = useStatus()
 
@@ -44,12 +49,18 @@ export function usePricingData(enabled = true) {
     [status?.usd_exchange_rate, priceRate]
   )
 
+  const vendors = useMemo(() => {
+    const existing = data?.vendors ?? []
+    const existingNames = new Set(existing.map((v) => v.name.toLowerCase()))
+    const additional = DEFAULT_VENDORS.filter(
+      (v) => !existingNames.has(v.name.toLowerCase())
+    )
+    return [...existing, ...additional]
+  }, [data?.vendors])
+
   const models = useMemo(() => {
-    if (!data?.data || !data?.vendors) return []
-
-    const vendorMap = new Map(data.vendors.map((v) => [v.id, v]))
-
-    return data.data.map((model) => {
+    const vendorMap = new Map(vendors.map((v) => [v.id, v]))
+    const serverModels = (data?.data ?? []).map((model) => {
       const vendor = model.vendor_id
         ? vendorMap.get(model.vendor_id)
         : undefined
@@ -59,16 +70,32 @@ export function usePricingData(enabled = true) {
         vendor_name: vendor?.name,
         vendor_icon: vendor?.icon,
         vendor_description: vendor?.description,
-        group_ratio: data.group_ratio,
+        group_ratio: data?.group_ratio,
       }
     })
-  }, [data])
+
+    const serverModelNames = new Set(
+      serverModels.map((m) => m.model_name.toLowerCase())
+    )
+
+    const defaultModels = DEFAULT_FOUNDATION_MODELS.filter(
+      (m) => !serverModelNames.has(m.model_name.toLowerCase())
+    ).map((m) => ({
+      ...m,
+      key: m.model_name,
+      group_ratio: data?.group_ratio,
+    }))
+
+    return [...serverModels, ...defaultModels]
+  }, [data, vendors])
 
   return {
     models,
-    vendors: data?.vendors ?? [],
-    groupRatio: data?.group_ratio ?? {},
-    usableGroup: data?.usable_group ?? {},
+    vendors,
+    groupRatio: data?.group_ratio ?? { default: 1 },
+    usableGroup: data?.usable_group && Object.keys(data.usable_group).length > 0
+      ? data.usable_group
+      : { default: 'Default' },
     endpointMap: data?.supported_endpoint ?? {},
     autoGroups: data?.auto_groups ?? [],
     isLoading,

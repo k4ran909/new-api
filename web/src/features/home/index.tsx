@@ -28,11 +28,14 @@ import { useAuthStore } from '@/stores/auth-store'
 
 import {
   Architecture,
+  BenchmarkComparison,
   CodePreview,
+  CostCalculator,
   CTA,
   Faq,
   Features,
   Hero,
+  LivePlayground,
   TrustedBy,
 } from './components'
 import { useHomePageContent } from './hooks'
@@ -133,6 +136,9 @@ export function Home() {
       <Hero isAuthenticated={isAuthenticated} />
       <TrustedBy />
       <Architecture />
+      <LivePlayground />
+      <CostCalculator />
+      <BenchmarkComparison />
       <CodePreview />
       <Features />
       <Faq />
