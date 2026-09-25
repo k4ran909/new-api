@@ -262,7 +262,7 @@ const response = await openai.chat.completions.create({
             {/* Hero CTA Button Group */}
             <div className='mt-7 flex flex-wrap items-center gap-3'>
               <Link
-                to={isAuthenticated ? '/tokens' : '/sign-up'}
+                to={isAuthenticated ? '/keys' : '/sign-up'}
                 className='inline-flex items-center justify-center h-11 px-7 rounded-full bg-[#0086ff] hover:bg-[#0073e6] text-white font-medium text-sm transition-all shadow-[0_4px_14px_rgba(0,134,255,0.35)] hover:shadow-[0_6px_20px_rgba(0,134,255,0.45)] hover:-translate-y-0.5 active:translate-y-0'
               >
                 <span>{t('Get API Key')}</span>

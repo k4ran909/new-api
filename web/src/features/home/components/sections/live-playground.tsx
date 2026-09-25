@@ -845,7 +845,7 @@ for chunk in stream:
                 </span>
 
                 <Link
-                  to={isAuthenticated ? '/tokens' : '/sign-up'}
+                  to={isAuthenticated ? '/keys' : '/sign-up'}
                   className='inline-flex items-center gap-1 text-xs font-semibold text-[#0086ff] hover:underline'
                 >
                   <span>{isAuthenticated ? t('View API Keys') : t('Get Free Key')}</span>

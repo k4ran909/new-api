@@ -33,10 +33,10 @@ export function CTA(props: CTAProps) {
           </Link>
 
           <Link
-            to={isAuthenticated ? '/tokens' : '/sign-up'}
+            to={isAuthenticated ? '/keys' : '/sign-up'}
             className='inline-flex items-center justify-center min-w-[140px] h-12 px-7 rounded-full border border-border/80 bg-background hover:bg-muted text-foreground font-semibold text-sm transition-all shadow-xs hover:-translate-y-0.5'
           >
-            <span>{isAuthenticated ? t('Go to Console') : t('Start Free')}</span>
+            <span>{isAuthenticated ? t('Go to API Keys') : t('Start Free')}</span>
           </Link>
         </div>
       </div>
