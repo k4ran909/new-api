@@ -20,7 +20,12 @@ const APPS = [
   { name: 'OpenCode', label: 'OpenCode' },
 ]
 
-export function Architecture() {
+interface ArchitectureProps {
+  isAuthenticated?: boolean
+}
+
+export function Architecture(props: ArchitectureProps) {
+  const { isAuthenticated } = props
   const { t } = useTranslation()
   const { systemName } = useSystemConfig()
   const brandName = systemName || 'TokenRouter'
@@ -134,10 +139,10 @@ export function Architecture() {
         {/* Section Action Button */}
         <div className='mt-8 flex justify-center'>
           <Link
-            to='/sign-up'
+            to={isAuthenticated ? '/tokens' : '/sign-up'}
             className='inline-flex items-center gap-2 h-11 px-8 rounded-full bg-[#0086ff] hover:bg-[#0073e6] text-white font-medium text-sm transition-all shadow-[0_4px_14px_rgba(0,134,255,0.35)] hover:shadow-[0_6px_20px_rgba(0,134,255,0.45)] hover:-translate-y-0.5'
           >
-            <span>{t('Claim Free Credits')}</span>
+            <span>{isAuthenticated ? t('View API Keys & Quota') : t('Claim Free Credits')}</span>
             <ArrowRight className='size-4' />
           </Link>
         </div>

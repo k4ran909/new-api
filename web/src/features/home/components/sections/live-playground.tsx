@@ -17,6 +17,11 @@ import {
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
+import { useSystemConfig } from '@/hooks/use-system-config'
+
+interface LivePlaygroundProps {
+  isAuthenticated?: boolean
+}
 
 interface ModelOption {
   id: string
@@ -321,8 +326,11 @@ Imagine two enchanted dice rolled on opposite sides of the planet:
   },
 ]
 
-export function LivePlayground() {
+export function LivePlayground(props: LivePlaygroundProps) {
+  const { isAuthenticated } = props
   const { t } = useTranslation()
+  const { systemName } = useSystemConfig()
+  const brandName = systemName || 'TokenRouter'
   const [selectedModelId, setSelectedModelId] = useState('deepseek-chat')
   const [activePresetId, setActivePresetId] = useState('rate-limiter')
   const [inputPrompt, setInputPrompt] = useState(PRESETS[0].prompt)
@@ -331,6 +339,13 @@ export function LivePlayground() {
   const [hasStreamed, setHasStreamed] = useState(false)
   const [copied, setCopied] = useState(false)
   const [activeTab, setActiveTab] = useState<'stream' | 'raw' | 'json' | 'curl' | 'python'>('stream')
+
+  const baseUrl = useMemo(() => {
+    if (typeof window !== 'undefined') {
+      return `${window.location.origin}/v1`
+    }
+    return 'https://llm.fluxnat.dev/v1'
+  }, [])
 
   // Telemetry metrics
   const [ttft, setTtft] = useState(14)
@@ -460,9 +475,10 @@ export function LivePlayground() {
   }, [selectedModel, streamedText, isStreaming, inputPrompt, tokenCount, ttft])
 
   const curlSnippet = useMemo(() => {
-    return `curl https://llm.fluxnat.dev/v1/chat/completions \\
+    const envKey = `${brandName.toUpperCase().replace(/[^A-Z0-9]/g, '_')}_API_KEY`
+    return `curl ${baseUrl}/chat/completions \\
   -H "Content-Type: application/json" \\
-  -H "Authorization: Bearer $TOKENROUTER_API_KEY" \\
+  -H "Authorization: Bearer $${envKey}" \\
   -d '{
     "model": "${selectedModel.id}",
     "messages": [
@@ -470,13 +486,13 @@ export function LivePlayground() {
     ],
     "stream": true
   }'`
-  }, [selectedModel.id, inputPrompt])
+  }, [baseUrl, brandName, selectedModel.id, inputPrompt])
 
   const pythonSnippet = useMemo(() => {
     return `from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://llm.fluxnat.dev/v1",
+    base_url="${baseUrl}",
     api_key="your_api_key_here",
 )
 
@@ -488,7 +504,7 @@ stream = client.chat.completions.create(
 
 for chunk in stream:
     print(chunk.choices[0].delta.content or "", end="", flush=True)`
-  }, [selectedModel.id, inputPrompt])
+  }, [baseUrl, selectedModel.id, inputPrompt])
 
   const routerCost = useMemo(() => {
     const rate = parseFloat(selectedModel.completionPrice.replace('$', ''))
@@ -513,10 +529,13 @@ for chunk in stream:
           </div>
 
           <h2 className='text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground'>
-            Experience Instant Routing. Live.
+            {t('Experience Instant Routing. Live.')}
           </h2>
           <p className='text-muted-foreground mt-3 text-sm sm:text-base max-w-2xl'>
-            Select a flagship model, run a prompt, and watch TokenRouter deliver sub-20ms first-token latency with real-time streaming and automatic multi-provider failover.
+            {t(
+              'Select a flagship model, run a prompt, and watch {{brandName}} deliver sub-20ms first-token latency with real-time streaming and automatic multi-provider failover.',
+              { brandName }
+            )}
           </p>
         </div>
 
@@ -826,10 +845,10 @@ for chunk in stream:
                 </span>
 
                 <Link
-                  to='/sign-up'
+                  to={isAuthenticated ? '/tokens' : '/sign-up'}
                   className='inline-flex items-center gap-1 text-xs font-semibold text-[#0086ff] hover:underline'
                 >
-                  <span>Get Free Key</span>
+                  <span>{isAuthenticated ? t('View API Keys') : t('Get Free Key')}</span>
                   <ArrowRight className='size-3' />
                 </Link>
               </div>

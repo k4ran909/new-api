@@ -8,7 +8,8 @@ interface CTAProps {
   isAuthenticated?: boolean
 }
 
-export function CTA(_props: CTAProps) {
+export function CTA(props: CTAProps) {
+  const { isAuthenticated } = props
   const { t } = useTranslation()
   const { systemName } = useSystemConfig()
   const brandName = systemName || 'TokenRouter'
@@ -25,17 +26,17 @@ export function CTA(_props: CTAProps) {
         <div className='mt-10 flex flex-wrap items-center justify-center gap-4'>
           <Link
             to='/about'
-            className='inline-flex items-center justify-center min-w-[170px] h-12 px-7 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white font-medium text-base transition-all shadow-sm'
+            className='inline-flex items-center justify-center min-w-[160px] h-12 px-7 rounded-full bg-[#0086ff] hover:bg-[#0073e6] text-white font-semibold text-sm transition-all shadow-[0_4px_14px_rgba(0,134,255,0.35)] hover:shadow-[0_6px_20px_rgba(0,134,255,0.45)] hover:-translate-y-0.5'
           >
             <span>{t('Talk to Sales')}</span>
             <ArrowRight className='size-4 ml-2' />
           </Link>
 
           <Link
-            to='/sign-up'
-            className='inline-flex items-center justify-center min-w-[130px] h-12 px-7 rounded-full border border-border/80 bg-card hover:bg-muted/40 text-foreground font-medium text-base transition-all shadow-2xs'
+            to={isAuthenticated ? '/tokens' : '/sign-up'}
+            className='inline-flex items-center justify-center min-w-[140px] h-12 px-7 rounded-full border border-border/80 bg-background hover:bg-muted text-foreground font-semibold text-sm transition-all shadow-xs hover:-translate-y-0.5'
           >
-            <span>{t('Start Free')}</span>
+            <span>{isAuthenticated ? t('Go to Console') : t('Start Free')}</span>
           </Link>
         </div>
       </div>

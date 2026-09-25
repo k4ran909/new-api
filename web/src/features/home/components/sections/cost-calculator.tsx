@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router'
 import { Calculator, ArrowRight, DollarSign, TrendingDown, Percent, Sparkles } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
+import { useSystemConfig } from '@/hooks/use-system-config'
 
 interface PricingModelConfig {
   id: string
@@ -55,6 +56,8 @@ const CALCULATOR_MODELS: PricingModelConfig[] = [
 
 export function CostCalculator() {
   const { t } = useTranslation()
+  const { systemName } = useSystemConfig()
+  const brandName = systemName || 'TokenRouter'
   const [selectedModelId, setSelectedModelId] = useState('deepseek-v3')
   const [inputTokensM, setInputTokensM] = useState(50) // in Millions
   const [outputTokensM, setOutputTokensM] = useState(25) // in Millions
@@ -96,10 +99,13 @@ export function CostCalculator() {
           </div>
 
           <h2 className='text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground'>
-            Calculate Your Monthly Savings
+            {t('Calculate Your Monthly Savings')}
           </h2>
           <p className='text-muted-foreground mt-3 text-sm sm:text-base max-w-2xl'>
-            See immediate infrastructure return-on-investment by routing your traffic through TokenRouter’s high-efficiency smart-route gateway.
+            {t(
+              'See immediate infrastructure return-on-investment by routing your traffic through {{brandName}}’s high-efficiency smart-route gateway.',
+              { brandName }
+            )}
           </p>
         </div>
 
@@ -235,7 +241,7 @@ export function CostCalculator() {
                 <div className='flex items-center justify-between p-3.5 rounded-2xl bg-[#0086ff]/10 border border-[#0086ff]/30'>
                   <div>
                     <div className='text-xs font-semibold text-[#0086ff]'>
-                      TokenRouter Smart Rate
+                      {brandName} Smart Rate
                     </div>
                     <div className='text-xs text-muted-foreground mt-0.5'>
                       With multi-upstream discount
@@ -269,7 +275,7 @@ export function CostCalculator() {
                 to='/sign-up'
                 className='w-full inline-flex items-center justify-center h-12 px-6 rounded-full bg-[#0086ff] hover:bg-[#0073e6] text-white text-sm font-semibold transition-all shadow-[0_4px_14px_rgba(0,134,255,0.35)] hover:shadow-[0_6px_20px_rgba(0,134,255,0.45)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer'
               >
-                <span>Start Saving with TokenRouter</span>
+                <span>{t('Start Saving with {{brandName}}', { brandName })}</span>
                 <ArrowRight className='size-4 ml-2' />
               </Link>
             </div>

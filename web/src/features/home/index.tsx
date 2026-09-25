@@ -135,8 +135,8 @@ export function Home() {
     <PublicLayout showMainContainer={false}>
       <Hero isAuthenticated={isAuthenticated} />
       <TrustedBy />
-      <Architecture />
-      <LivePlayground />
+      <Architecture isAuthenticated={isAuthenticated} />
+      <LivePlayground isAuthenticated={isAuthenticated} />
       <CostCalculator />
       <BenchmarkComparison />
       <CodePreview />

@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 import { Check, X, Minus, Sparkles, ArrowRight, ShieldCheck, Zap } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
+import { useSystemConfig } from '@/hooks/use-system-config'
 
 interface ComparisonRow {
   feature: string
@@ -137,6 +138,8 @@ const COMPARISON_ROWS: ComparisonRow[] = [
 
 export function BenchmarkComparison() {
   const { t } = useTranslation()
+  const { systemName } = useSystemConfig()
+  const brandName = systemName || 'TokenRouter'
 
   return (
     <section className='relative z-10 py-20 md:py-28 overflow-hidden'>
@@ -149,15 +152,24 @@ export function BenchmarkComparison() {
           </div>
 
           <h2 className='text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground'>
-            Why Developers Switch to TokenRouter
+            {t('Why Developers Switch to {{brandName}}', { brandName })}
           </h2>
           <p className='text-muted-foreground mt-3 text-sm sm:text-base max-w-2xl'>
-            See how TokenRouter’s high-performance edge architecture outperforms direct provider connections and legacy cloud wrappers in speed, reliability, and cost.
+            {t(
+              'See how {{brandName}}’s high-performance edge architecture outperforms direct provider connections and legacy cloud wrappers in speed, reliability, and cost.',
+              { brandName }
+            )}
           </p>
         </div>
 
         {/* Comparison Table Card */}
         <div className='rounded-3xl border border-border/80 bg-card shadow-lg overflow-hidden'>
+          {/* Mobile Swipe Hint */}
+          <div className='flex md:hidden items-center justify-center gap-1.5 px-4 py-2 bg-muted/40 border-b border-border/60 text-[11px] text-muted-foreground'>
+            <span className='text-[#0086ff] font-bold'>⟷</span>
+            <span>{t('Swipe table horizontally to compare all providers')}</span>
+          </div>
+
           <div className='overflow-x-auto'>
             <table className='w-full text-left border-collapse min-w-[760px]'>
               <thead>
@@ -165,10 +177,10 @@ export function BenchmarkComparison() {
                   <th className='p-5 sm:p-6 text-sm font-semibold text-foreground w-[36%]'>
                     Capability / Benchmark
                   </th>
-                  {/* TokenRouter Column */}
+                  {/* Dynamic Brand Column */}
                   <th className='p-5 sm:p-6 text-sm font-semibold text-[#0086ff] bg-[#0086ff]/5 border-x border-[#0086ff]/20 w-[30%]'>
                     <div className='flex items-center gap-2'>
-                      <span>TokenRouter Gateway</span>
+                      <span>{brandName} Gateway</span>
                       <span className='rounded-full bg-[#0086ff] text-white px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase'>
                         Recommended
                       </span>

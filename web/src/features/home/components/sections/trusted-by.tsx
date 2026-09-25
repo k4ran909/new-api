@@ -43,11 +43,11 @@ export function TrustedBy() {
           {PARTNERS.map((partner) => (
             <div
               key={partner.name}
-              className='group flex items-center justify-between px-3.5 py-2.5 w-full h-13 rounded-xl border border-border/60 bg-card/70 hover:border-[#0086ff]/50 hover:bg-card hover:shadow-xs transition-all duration-200'
+              className='group flex items-center justify-between px-2.5 sm:px-3.5 py-2 sm:py-2.5 w-full h-12 sm:h-13 rounded-xl border border-border/60 bg-card/70 hover:border-[#0086ff]/50 hover:bg-card hover:shadow-xs transition-all duration-200'
             >
-              <div className='flex items-center gap-2 truncate'>
+              <div className='flex items-center gap-2 min-w-0'>
                 <span
-                  className='size-6 rounded-md flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-2xs'
+                  className='size-5 sm:size-6 rounded-md flex items-center justify-center text-[10px] sm:text-xs font-bold text-white shrink-0 shadow-2xs'
                   style={{ backgroundColor: partner.color || '#64748b' }}
                 >
                   {partner.symbol || '✦'}
@@ -57,7 +57,7 @@ export function TrustedBy() {
                 </span>
               </div>
               {partner.sub && (
-                <span className='text-[10px] font-mono text-muted-foreground/70 bg-muted px-1.5 py-0.5 rounded shrink-0'>
+                <span className='hidden sm:inline-block text-[10px] font-mono text-muted-foreground/70 bg-muted px-1.5 py-0.5 rounded shrink-0 ml-1'>
                   {partner.sub}
                 </span>
               )}

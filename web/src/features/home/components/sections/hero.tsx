@@ -280,7 +280,7 @@ const response = await openai.chat.completions.create({
                 href={docsUrl}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='inline-flex items-center justify-center h-11 px-5 rounded-full border border-transparent hover:border-border/60 bg-transparent hover:bg-muted/40 text-muted-foreground hover:text-foreground font-medium text-sm transition-all'
+                className='inline-flex items-center justify-center h-11 px-5 rounded-full border border-border/80 bg-background/60 hover:bg-muted/60 text-foreground/80 hover:text-foreground font-medium text-sm transition-all shadow-2xs'
               >
                 <span>{t('Read Docs')}</span>
               </a>
@@ -288,27 +288,27 @@ const response = await openai.chat.completions.create({
 
             {/* 3-Metric Trust Row with Dividers */}
             <div className='mt-10 pt-7 border-t border-border/50 grid grid-cols-3 divide-x divide-border/60 w-full max-w-lg'>
-              <div className='pr-4'>
-                <div className='text-2xl sm:text-3xl font-bold tracking-tight text-foreground'>
+              <div className='pr-3 sm:pr-4'>
+                <div className='text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-foreground'>
                   99.99%
                 </div>
-                <div className='text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5'>
+                <div className='text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 truncate'>
                   {t('UPTIME SLA')}
                 </div>
               </div>
-              <div className='px-4'>
-                <div className='text-2xl sm:text-3xl font-bold tracking-tight text-[#0086ff]'>
+              <div className='px-3 sm:px-4'>
+                <div className='text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-[#0086ff]'>
                   &lt; 20ms
                 </div>
-                <div className='text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5'>
+                <div className='text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 truncate'>
                   {t('ROUTING OVERHEAD')}
                 </div>
               </div>
-              <div className='pl-4'>
-                <div className='text-2xl sm:text-3xl font-bold tracking-tight text-foreground'>
+              <div className='pl-3 sm:pl-4'>
+                <div className='text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-foreground'>
                   100+
                 </div>
-                <div className='text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5'>
+                <div className='text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-0.5 truncate'>
                   {t('ACTIVE MODELS')}
                 </div>
               </div>

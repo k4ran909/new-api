@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, X } from 'lucide-react'
+import { useAuthStore } from '@/stores/auth-store'
 
 export function AnnouncementBanner() {
   const [dismissed, setDismissed] = useState(false)
+  const { auth } = useAuthStore()
   if (dismissed) return null
 
   return (
@@ -16,7 +18,7 @@ export function AnnouncementBanner() {
           🎉 Top up $8, get $2 free (20% off)
         </span>
         <Link
-          to='/sign-in'
+          to={auth.user ? '/wallet' : '/sign-in'}
           className='inline-flex items-center gap-1 font-medium underline underline-offset-2 hover:text-white/90 shrink-0 ml-1'
         >
           Claim Now <ArrowRight className='size-3.5' />
