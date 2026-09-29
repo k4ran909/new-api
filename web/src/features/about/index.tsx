@@ -125,7 +125,7 @@ export function About() {
     return (
       <PublicLayout showMainContainer={false}>
         <div className='min-h-[calc(100vh-3.5rem)] flex flex-col justify-between bg-background'>
-          <div className='py-4 sm:py-6'>
+          <div className='flex-1 flex items-center justify-center py-6 sm:py-10 px-4'>
             <AboutSection3 />
           </div>
           <ProjectAttributionFooter />
