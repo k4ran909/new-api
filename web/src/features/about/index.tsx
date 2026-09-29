@@ -22,6 +22,7 @@ import { useTranslation } from 'react-i18next'
 
 import { PublicLayout } from '@/components/layout'
 import { RichContent } from '@/components/rich-content'
+import { AboutSection3 } from '@/components/ui/about-section'
 import { Skeleton } from '@/components/ui/skeleton'
 import { isHttpUrl, isLikelyHtml } from '@/lib/content-format'
 import { requireServerSuccess } from '@/lib/server-error-message'
@@ -140,8 +141,11 @@ export function About() {
 
   if (!hasContent) {
     return (
-      <PublicLayout>
-        <EmptyAboutState />
+      <PublicLayout showMainContainer={false}>
+        <AboutSection3 />
+        <div className='border-t border-border/40 bg-background py-8'>
+          <EmptyAboutState />
+        </div>
       </PublicLayout>
     )
   }
