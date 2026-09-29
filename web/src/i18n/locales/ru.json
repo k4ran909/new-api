@@ -5607,6 +5607,7 @@
     "Sunset Glow": "Закатное сияние",
     "Super admin": "Суперадминистратор",
     "Super Admin": "Суперадмин",
+    "Root User": "Root User",
     "Super Large": "Очень крупная",
     "Support for high concurrency with automatic load balancing": "Поддержка высокой конкурентности с автоматической балансировкой нагрузки",
     "Supported Applications": "Поддерживаемые приложения",
@@ -6777,6 +6778,8 @@
     "Zhipu": "Zhipu",
     "Zhipu GLM": "Zhipu GLM",
     "Zhipu V4": "Zhipu V4",
-    "Zoom": "Zoom"
+    "Zoom": "Zoom",
+    "Model directory & pricing": "Каталог моделей и цены",
+    "Quick filters": "Быстрые фильтры"
   }
 }

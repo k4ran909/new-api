@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react'
 import { Link } from '@tanstack/react-router'
 import {
-  Sparkles,
   Copy,
   Check,
   ArrowRight,

@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Sparkles, ArrowRight, User, Users, Cpu, Layers } from 'lucide-react'
+import { Sparkles, ArrowRight, Users, Cpu } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useSystemConfig } from '@/hooks/use-system-config'
 

@@ -223,4 +223,20 @@ describe('pricing controls', () => {
     await user.keyboard('{Escape}')
     expect(await screen.findByRole('button', { name: /Filter/ })).toHaveFocus()
   })
+
+  it('unifies the height of toolbar buttons, toggle controls, and sort triggers to 32px (h-8)', () => {
+    const props = toolbarProps()
+    render(<PricingToolbar {...props} />)
+
+    const filterButton = screen.getByRole('button', { name: /Filter/i })
+    const sortButton = screen.getByRole('button', { name: 'Name' })
+    const modeButton = screen.getByRole('button', { name: 'Standard' })
+    const unitButton = screen.getByRole('button', { name: '/1M' })
+    const viewGroup = screen.getByRole('group', { name: 'View mode' })
+
+    for (const element of [filterButton, sortButton, modeButton, unitButton, viewGroup]) {
+      expect(element.className).toContain('h-8')
+    }
+  })
 })
+

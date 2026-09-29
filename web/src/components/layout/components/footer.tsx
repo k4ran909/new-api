@@ -155,12 +155,10 @@ export function Footer(props: FooterProps) {
     systemName,
     logo: systemLogo,
     footerHtml,
-    demoSiteEnabled,
   } = useSystemConfig()
 
   const displayLogo = systemLogo || props.logo || '/logo.png'
   const displayName = systemName || props.name || 'New API'
-  const isDemoSiteMode = Boolean(demoSiteEnabled)
   const currentYear = new Date().getFullYear()
 
   const fallbackColumns = useMemo<FooterColumnProps[]>(

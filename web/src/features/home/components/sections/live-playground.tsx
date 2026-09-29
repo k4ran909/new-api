@@ -7,8 +7,6 @@ import {
   Check,
   Zap,
   Activity,
-  Code2,
-  Terminal,
   Sparkles,
   ArrowRight,
   Sliders,
@@ -336,7 +334,6 @@ export function LivePlayground(props: LivePlaygroundProps) {
   const [inputPrompt, setInputPrompt] = useState(PRESETS[0].prompt)
   const [streamedText, setStreamedText] = useState('')
   const [isStreaming, setIsStreaming] = useState(false)
-  const [hasStreamed, setHasStreamed] = useState(false)
   const [copied, setCopied] = useState(false)
   const [activeTab, setActiveTab] = useState<'stream' | 'raw' | 'json' | 'curl' | 'python'>('stream')
 
@@ -371,7 +368,6 @@ export function LivePlayground(props: LivePlaygroundProps) {
 
     setIsStreaming(true)
     setStreamedText('')
-    setHasStreamed(true)
 
     // Randomize telemetry slightly for realism
     const randomTtft = Math.floor(Math.random() * 8) + 12

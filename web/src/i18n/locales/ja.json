@@ -5607,6 +5607,7 @@
     "Sunset Glow": "サンセットグロウ",
     "Super admin": "スーパー管理者",
     "Super Admin": "スーパー管理者",
+    "Root User": "Root User",
     "Super Large": "極大",
     "Support for high concurrency with automatic load balancing": "自動ロードバランシングによる高並行性のサポート",
     "Supported Applications": "サポートされているアプリケーション",
@@ -6777,6 +6778,8 @@
     "Zhipu": "Zhipu",
     "Zhipu GLM": "Zhipu GLM",
     "Zhipu V4": "Zhipu V 4",
-    "Zoom": "ズーム"
+    "Zoom": "ズーム",
+    "Model directory & pricing": "モデル一覧と料金",
+    "Quick filters": "クイックフィルター"
   }
 }

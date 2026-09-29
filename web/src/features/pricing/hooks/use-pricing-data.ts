@@ -95,7 +95,7 @@ export function usePricingData(enabled = true) {
     groupRatio: data?.group_ratio ?? { default: 1 },
     usableGroup: data?.usable_group && Object.keys(data.usable_group).length > 0
       ? data.usable_group
-      : { default: 'Default' },
+      : { default: { desc: 'Default', ratio: 1 } },
     endpointMap: data?.supported_endpoint ?? {},
     autoGroups: data?.auto_groups ?? [],
     isLoading,

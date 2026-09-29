@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { Link } from '@tanstack/react-router'
-import { Calculator, ArrowRight, DollarSign, TrendingDown, Percent, Sparkles } from 'lucide-react'
+import { Calculator, ArrowRight, TrendingDown, Sparkles } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import { useSystemConfig } from '@/hooks/use-system-config'

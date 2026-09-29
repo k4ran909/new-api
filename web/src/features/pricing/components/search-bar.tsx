@@ -61,8 +61,8 @@ export function SearchBar(props: SearchBarProps) {
         className={cn(
           'border-border/70 bg-background placeholder:text-muted-foreground/60',
           'hover:border-border',
-          'focus:border-[#0086ff] focus:ring-[#0086ff]/20 focus:ring-2',
-          'h-10 w-full rounded-full border pr-16 pl-10 text-sm transition-all outline-hidden'
+          'focus:border-ring focus:ring-ring/30 focus:ring-2',
+          'h-9 w-full rounded-full border pr-16 pl-10 text-sm transition-all outline-hidden'
         )}
         aria-label={t('Search models')}
       />

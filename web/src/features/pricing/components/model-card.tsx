@@ -207,18 +207,21 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
     )
   } else if (isTokenBased) {
     const prices: { type: PriceType; label: string }[] = [
-      { type: 'input', label: t('Input Price:') },
-      { type: 'output', label: t('Output Price:') },
+      { type: 'input', label: t('Input') },
+      { type: 'output', label: t('Output') },
       ...(props.model.cache_ratio != null
-        ? [{ type: 'cache' as const, label: t('Cache Read:') }]
+        ? [{ type: 'cache' as const, label: t('Cached') }]
         : []),
     ]
     priceSummary = (
       <div className='col-span-full flex flex-col gap-1 w-full'>
         {prices.map((price) => (
-          <div key={price.type} className='flex items-center justify-between text-xs py-0.5'>
-            <span className='text-muted-foreground'>{price.label}</span>
-            <span className='font-mono text-sm font-semibold tabular-nums text-[#0086ff] dark:text-[#60a5fa]'>
+          <div
+            key={price.type}
+            className='flex min-w-0 items-baseline justify-between gap-3 py-0.5 text-xs'
+          >
+            <span className='text-muted-foreground shrink-0'>{price.label}</span>
+            <span className='text-primary min-w-0 text-right font-mono text-sm font-semibold whitespace-nowrap tabular-nums'>
               {formatPrice(
                 props.model,
                 price.type,
@@ -239,9 +242,9 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
     )
   } else {
     priceSummary = (
-      <div className='col-span-full flex items-center justify-between text-xs py-0.5 w-full'>
-        <span className='text-muted-foreground'>{t('Price:')}</span>
-        <span className='font-mono text-sm font-semibold tabular-nums text-[#0086ff] dark:text-[#60a5fa]'>
+      <div className='col-span-full flex w-full min-w-0 items-baseline justify-between gap-3 py-0.5 text-xs'>
+        <span className='text-muted-foreground shrink-0'>{t('Price:')}</span>
+        <span className='text-primary min-w-0 text-right font-mono text-sm font-semibold whitespace-nowrap tabular-nums'>
           {formatRequestPrice(
             props.model,
             showRechargePrice,
@@ -259,7 +262,7 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
   }
 
   return (
-    <Card className='border border-border/75 hover:border-[#0086ff]/60 rounded-2xl bg-card hover:shadow-md hover:-translate-y-0.5 h-full min-w-0 gap-3 transition-all duration-200 shadow-2xs'>
+    <Card className='hover:ring-primary/40 h-full min-w-0 gap-3 shadow-2xs transition-[box-shadow] duration-200 hover:shadow-md'>
       <CardHeader className='flex flex-row items-start gap-3'>
         <div
           aria-hidden

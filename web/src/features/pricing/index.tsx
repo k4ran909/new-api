@@ -16,12 +16,14 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
+import { X } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PublicLayout } from '@/components/layout'
 import { PageTransition } from '@/components/page-transition'
-import { cn } from '@/lib/utils'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 
 import {
   LoadingSkeleton,
@@ -33,12 +35,27 @@ import {
   ModelCardGrid,
   ModelDetailsDrawer,
 } from './components'
-import { EXCLUDED_GROUPS, VIEW_MODES } from './constants'
+import {
+  ENDPOINT_TYPES,
+  EXCLUDED_GROUPS,
+  getEndpointTypeLabels,
+  VIEW_MODES,
+} from './constants'
 import { useFilters } from './hooks/use-filters'
 import { usePricingData } from './hooks/use-pricing-data'
 
+// Quick filters use real endpoint type values so they match
+// `supported_endpoint_types` in the catalog.
+const QUICK_ENDPOINT_FILTERS = [
+  ENDPOINT_TYPES.OPENAI,
+  ENDPOINT_TYPES.EMBEDDINGS,
+  ENDPOINT_TYPES.IMAGE_GENERATION,
+  ENDPOINT_TYPES.OPENAI_VIDEO,
+] as const
+
 export function Pricing() {
   const { t } = useTranslation()
+  const endpointTypeLabels = getEndpointTypeLabels(t)
   const [selectedModelName, setSelectedModelName] = useState<string | null>(
     null
   )
@@ -152,7 +169,7 @@ export function Pricing() {
   if (isLoading) {
     return (
       <PublicLayout showMainContainer={false}>
-        <div className='mx-auto w-full max-w-[1800px] px-3 pt-16 pb-8 sm:px-6 sm:pt-20 sm:pb-10 xl:px-8'>
+        <div className='mx-auto w-full max-w-[1800px] px-3 pt-24 pb-10 sm:px-6 sm:pt-28 sm:pb-12 xl:px-8'>
           <LoadingSkeleton viewMode={viewMode} />
         </div>
       </PublicLayout>
@@ -161,46 +178,34 @@ export function Pricing() {
 
   return (
     <PublicLayout showMainContainer={false}>
-      <div className='relative'>
+      <div className='relative isolate'>
+        {/* Theme-aware ambient glow: follows the active --primary preset */}
         <div
           aria-hidden
-          className='pointer-events-none absolute inset-x-0 top-0 h-[600px] opacity-20 dark:opacity-[0.10]'
-          style={{
-            background: [
-              'radial-gradient(ellipse 60% 50% at 20% 20%, oklch(0.72 0.18 250 / 80%) 0%, transparent 70%)',
-              'radial-gradient(ellipse 50% 40% at 80% 15%, oklch(0.65 0.15 200 / 60%) 0%, transparent 70%)',
-              'radial-gradient(ellipse 40% 35% at 50% 70%, oklch(0.70 0.12 280 / 40%) 0%, transparent 70%)',
-            ].join(', '),
-            maskImage:
-              'linear-gradient(to bottom, black 40%, transparent 100%)',
-            WebkitMaskImage:
-              'linear-gradient(to bottom, black 40%, transparent 100%)',
-          }}
+          className='from-primary/15 pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] bg-gradient-to-b to-transparent dark:from-primary/10'
         />
-        <PageTransition className='relative mx-auto w-full max-w-[1800px] px-3 pt-16 pb-8 sm:px-6 sm:pt-20 sm:pb-10 xl:px-8'>
-          {/* Subtle Ambient Glow */}
-          <div
-            aria-hidden
-            className='pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 size-[650px] rounded-full bg-[#0086ff]/10 blur-[130px] -z-10'
-          />
+        <PageTransition className='relative mx-auto w-full max-w-[1800px] px-3 pt-24 pb-10 sm:px-6 sm:pt-28 sm:pb-12 xl:px-8'>
+          <header className='mb-6 sm:mb-8'>
+            <Badge
+              variant='outline'
+              className='border-primary/30 bg-primary/10 text-primary mb-3 h-6 px-3 font-semibold tracking-wide uppercase'
+            >
+              {t('Model directory & pricing')}
+            </Badge>
 
-          <header className='mx-auto mb-6 max-w-5xl pt-6 text-left sm:mb-8 sm:pt-8'>
-            <div className='inline-flex items-center gap-1.5 rounded-full bg-[#0086ff]/10 border border-[#0086ff]/25 px-3 py-0.5 text-xs font-semibold tracking-wide text-[#0086ff] mb-3'>
-              <span>✦ MODEL DIRECTORY & PRICING</span>
-            </div>
-
-            <div className='flex items-center gap-3'>
-              <h1 className='text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-foreground'>
+            <div className='flex flex-wrap items-center gap-3'>
+              <h1 className='text-foreground text-3xl font-semibold tracking-tight sm:text-4xl'>
                 {t('All Models')}
               </h1>
-              <span className='inline-flex items-center rounded-full bg-[#0086ff]/10 border border-[#0086ff]/25 px-3 py-1 text-xs font-semibold text-[#0086ff]'>
+              <Badge variant='secondary' className='h-6 px-2.5 tabular-nums'>
                 {t('{{count}} Models', { count: models?.length || 0 })}
-              </span>
+              </Badge>
             </div>
-            <p className='text-muted-foreground mt-2 text-sm sm:text-base'>
+            <p className='text-muted-foreground mt-2 max-w-2xl text-sm sm:text-base'>
               {t('One Router, All Models — Better Pricing, Better Stability.')}
             </p>
-            <div className='mt-6 flex flex-col md:flex-row items-stretch md:items-center gap-3'>
+
+            <div className='mt-6 flex flex-col gap-3 md:flex-row md:items-center'>
               <SearchBar
                 value={searchInput}
                 onChange={setSearchInput}
@@ -208,24 +213,30 @@ export function Pricing() {
                 placeholder={t('Fuzzy search model name')}
                 className='w-full md:max-w-md'
               />
-              {/* Modality Quick Filter Pills */}
-              <div className='flex flex-wrap items-center gap-1.5'>
-                {['text', 'embedding', 'image', 'video', 'audio'].map((type) => {
-                  const isActive = endpointTypeFilter.toLowerCase() === type
+              <div
+                role='group'
+                aria-label={t('Quick filters')}
+                className='flex flex-wrap items-center gap-1.5'
+              >
+                {QUICK_ENDPOINT_FILTERS.map((type) => {
+                  const isActive = endpointTypeFilter === type
                   return (
-                    <button
+                    <Button
                       key={type}
                       type='button'
-                      onClick={() => setEndpointTypeFilter(isActive ? '' : type)}
-                      className={cn(
-                        'h-8 px-3 rounded-full text-xs font-medium border transition-colors cursor-pointer capitalize',
-                        isActive
-                          ? 'border-[#0086ff] bg-[#eef6ff] text-[#0086ff] dark:bg-[#0086ff]/20 dark:text-[#60a5fa]'
-                          : 'border-border/70 bg-card hover:bg-muted text-foreground/80'
-                      )}
+                      variant={isActive ? 'default' : 'outline'}
+                      size='lg'
+                      aria-pressed={isActive}
+                      onClick={() =>
+                        setEndpointTypeFilter(
+                          isActive ? ENDPOINT_TYPES.ALL : type
+                        )
+                      }
+                      className='rounded-full px-3'
                     >
-                      {type} {isActive && '×'}
-                    </button>
+                      {endpointTypeLabels[type]}
+                      {isActive && <X aria-hidden className='size-3' />}
+                    </Button>
                   )
                 })}
               </div>

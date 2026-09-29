@@ -92,7 +92,6 @@ export function PricingToolbar(props: PricingToolbarProps) {
           <Button
             type='button'
             variant='outline'
-            size='sm'
             onClick={() => setMobileFiltersOpen(true)}
             className='gap-1.5 xl:hidden'
           >
@@ -128,7 +127,6 @@ export function PricingToolbar(props: PricingToolbarProps) {
               }
             }}
             variant='outline'
-            size='sm'
             aria-label={t('Price display mode')}
           >
             <ToggleGroupItem value='standard'>{t('Standard')}</ToggleGroupItem>
@@ -142,7 +140,6 @@ export function PricingToolbar(props: PricingToolbarProps) {
               }
             }}
             variant='outline'
-            size='sm'
             aria-label={t('Token unit')}
           >
             <ToggleGroupItem value='M'>/1M</ToggleGroupItem>
@@ -155,8 +152,7 @@ export function PricingToolbar(props: PricingToolbarProps) {
                 <Button
                   type='button'
                   variant='outline'
-                  size='sm'
-                  className='h-8 gap-1.5 px-3 text-xs'
+                  className='gap-1.5 px-3'
                 />
               }
             >
