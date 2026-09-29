@@ -19,14 +19,18 @@ For commercial licensing, please contact support@quantumnous.com
 
 import { useNavigate } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 
+import { AuthButtons } from '@/components/layout/components/auth-buttons'
+import { Button } from '@/components/ui/button'
 import { useSystemConfig } from '@/hooks/use-system-config'
 import { useAuthStore } from '@/stores/auth-store'
 
 import './vantage-landing.css'
 
 export function Home() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { auth } = useAuthStore()
   const isAuthenticated = !!auth.user
@@ -73,14 +77,6 @@ export function Home() {
   }
 
   const handlePrimaryCtaClick = () => {
-    if (isAuthenticated) {
-      void navigate({ to: '/dashboard' })
-    } else {
-      void navigate({ to: '/sign-up' })
-    }
-  }
-
-  const handleSignUpClick = () => {
     if (isAuthenticated) {
       void navigate({ to: '/dashboard' })
     } else {
@@ -191,13 +187,19 @@ export function Home() {
               <span className="time-value">9:47 PM&nbsp; • &nbsp;14 July 2026</span>
             </div>
 
-            <button
-              className="sign-up"
-              type="button"
-              onClick={handleSignUpClick}
-            >
-              {isAuthenticated ? 'Console' : 'Sign Up'}
-            </button>
+            {isAuthenticated ? (
+              <div className="auth-actions">
+                <Button
+                  size="lg"
+                  className="rounded-full px-5 font-semibold shadow-sm"
+                  onClick={() => void navigate({ to: '/dashboard' })}
+                >
+                  {t('Console')}
+                </Button>
+              </div>
+            ) : (
+              <AuthButtons tone="overlay" className="auth-actions" />
+            )}
           </div>
 
           <button

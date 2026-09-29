@@ -202,36 +202,14 @@
   line-height: 1.25;
 }
 
-.vantage-screen .sign-up {
-  width: 109px;
-  height: 42px;
-  border-radius: 7px;
-  background: #fff;
-  color: #101010;
-  font-weight: 460;
-  font-size: 15px;
-  letter-spacing: -.34px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.72), 0 1px 5px rgba(0,0,0,.34);
-  margin-left: clamp(20px, 1.95vw, 29px);
-  border: none;
-  cursor: pointer;
-  flex-shrink: 0;
+/* Sign in / Sign up pair (shared AuthButtons component) */
+.vantage-screen .auth-actions {
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  font-family: inherit;
-  transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
-}
-
-.vantage-screen .sign-up:hover {
-  transform: translateY(-1px) scale(1.02);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 4px 12px rgba(255,255,255,.2);
-  filter: brightness(1.04);
-}
-
-.vantage-screen .sign-up:active {
-  transform: translateY(0) scale(0.98);
+  gap: 8px;
+  flex-shrink: 0;
+  align-self: center;
+  margin-left: clamp(20px, 1.95vw, 29px);
 }
 
 .vantage-screen .menu-toggle {
@@ -514,7 +492,7 @@
 .vantage-screen.motion-pending .time-panel {
   opacity: 0;
 }
-.vantage-screen.motion-pending .sign-up {
+.vantage-screen.motion-pending .auth-actions {
   opacity: 0;
 }
 .vantage-screen.motion-pending .menu-toggle {
@@ -551,7 +529,7 @@
 .vantage-screen.motion-pending .time-panel {
   animation: v-entrance-nav 520ms cubic-bezier(.16,1,.3,1) 180ms forwards;
 }
-.vantage-screen.motion-pending .sign-up {
+.vantage-screen.motion-pending .auth-actions {
   animation: v-entrance-action 520ms cubic-bezier(.16,1,.3,1) 220ms forwards;
 }
 .vantage-screen.motion-pending .menu-toggle {
@@ -684,13 +662,14 @@
     height: auto;
   }
 
-  .vantage-screen .sign-up {
+  .vantage-screen .auth-actions {
     width: 100%;
-    height: 44px;
     margin-left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    align-self: stretch;
+  }
+
+  .vantage-screen .auth-actions > * {
+    flex: 1 1 0;
   }
 }
 
@@ -782,13 +761,14 @@
     height: auto;
   }
 
-  .vantage-screen .sign-up {
+  .vantage-screen .auth-actions {
     width: 100%;
-    height: 44px;
     margin-left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    align-self: stretch;
+  }
+
+  .vantage-screen .auth-actions > * {
+    flex: 1 1 0;
   }
 
   .vantage-screen .hero-title .line-one {

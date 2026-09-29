@@ -37,6 +37,7 @@ import { useAuthStore } from '@/stores/auth-store'
 import { defaultTopNavLinks } from '../config/top-nav.config'
 import type { TopNavLink } from '../types'
 import { AnnouncementBanner } from './announcement-banner'
+import { AuthButtons } from './auth-buttons'
 import { HeaderLogo } from './header-logo'
 
 const AUTH_PROMPT_SECONDS = 5
@@ -111,27 +112,9 @@ export function PublicHeader(props: PublicHeaderProps) {
   if (customLogo) logoContent = customLogo
   if (loading) logoContent = <Skeleton className='size-full rounded-lg' />
 
-  let authContent = (
-    <div className='flex items-center gap-2'>
-      <Button
-        variant='ghost'
-        size='sm'
-        className='h-8 rounded-full border border-border/80 bg-background/50 hover:bg-muted text-foreground px-3.5 text-xs font-medium transition-colors shadow-2xs'
-        render={<Link to='/sign-in' />}
-      >
-        {t('Sign in')}
-      </Button>
-      <Button
-        size='sm'
-        className='h-8 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white px-4 text-xs font-medium transition-all shadow-xs shadow-[#0086ff]/25 hover:shadow-md hover:shadow-[#0086ff]/35'
-        render={<Link to='/sign-up' />}
-      >
-        {t('Sign up')}
-      </Button>
-    </div>
-  )
+  let authContent: ReactNode = <AuthButtons />
   if (isAuthenticated) authContent = <ProfileDropdown />
-  if (loading) authContent = <Skeleton className='h-8 w-28 rounded-full' />
+  if (loading) authContent = <Skeleton className='h-9 w-40 rounded-full' />
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -331,20 +314,7 @@ export function PublicHeader(props: PublicHeaderProps) {
                 isAuthenticated ? (
                   <ProfileDropdown />
                 ) : (
-                  <div className='flex items-center gap-1.5'>
-                    <Link
-                      to='/sign-in'
-                      className='h-7 rounded-full border border-border/80 bg-background/50 hover:bg-muted text-foreground px-2.5 text-xs font-medium flex items-center justify-center transition-colors'
-                    >
-                      {t('Sign in')}
-                    </Link>
-                    <Link
-                      to='/sign-up'
-                      className='h-7 rounded-full bg-[#0086ff] hover:bg-[#006fd6] text-white px-3 text-xs font-medium flex items-center justify-center transition-colors shadow-xs'
-                    >
-                      {t('Sign up')}
-                    </Link>
-                  </div>
+                  <AuthButtons compact className='gap-1.5' />
                 )
               )}
               <Button
