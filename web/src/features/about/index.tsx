@@ -17,7 +17,6 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import { useQuery } from '@tanstack/react-query'
-import { Construction } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 import { PublicLayout } from '@/components/layout'
@@ -29,88 +28,71 @@ import { requireServerSuccess } from '@/lib/server-error-message'
 
 import { getAboutContent } from './api'
 
-function EmptyAboutState() {
+function ProjectAttributionFooter() {
   const { t } = useTranslation()
   const currentYear = new Date().getFullYear()
 
   return (
-    <div className='flex min-h-[60vh] items-center justify-center p-8'>
-      <div className='max-w-2xl space-y-6 text-center'>
-        <div className='flex justify-center'>
-          <Construction className='text-muted-foreground h-24 w-24' />
-        </div>
-        <div className='space-y-2'>
-          <h2 className='text-2xl font-bold'>{t('No About Content Set')}</h2>
-          <p className='text-muted-foreground'>
-            {t(
-              'The administrator has not configured any about content yet. You can set it in the settings page, supporting HTML or URL.'
-            )}
-          </p>
-        </div>
-        <div className='space-y-4 text-sm'>
-          <p>
-            {t('New API Project Repository:')}{' '}
-            <a
-              href='https://github.com/QuantumNous/new-api'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='text-primary hover:underline'
-            >
-              {t('https://github.com/QuantumNous/new-api')}
-            </a>
-          </p>
-          <p className='text-muted-foreground'>
-            <a
-              href='https://github.com/QuantumNous/new-api'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='text-primary hover:underline'
-            >
-              {t('NewAPI')}
-            </a>{' '}
-            © {currentYear}{' '}
-            <a
-              href='https://github.com/QuantumNous'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='text-primary hover:underline'
-            >
-              {t('QuantumNous')}
-            </a>{' '}
-            {t('| Based on')}{' '}
-            <a
-              href='https://github.com/songquanpeng/one-api'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='text-primary hover:underline'
-            >
-              {t('One API')}
-            </a>{' '}
-            © 2023{' '}
-            <a
-              href='https://github.com/songquanpeng'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='text-primary hover:underline'
-            >
-              {t('JustSong')}
-            </a>
-          </p>
-          <p className='text-muted-foreground'>
-            {t('This project must be used in compliance with the')}{' '}
-            <a
-              href='https://github.com/QuantumNous/new-api/blob/main/LICENSE'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='text-primary hover:underline'
-            >
-              {t('AGPL v3.0 License')}
-            </a>
-            .
-          </p>
-        </div>
+    <footer className='border-t border-border/40 bg-background/80 py-5 text-xs text-muted-foreground'>
+      <div className='mx-auto max-w-5xl px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left'>
+        <p>
+          <a
+            href='https://github.com/QuantumNous/new-api'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='font-semibold text-foreground hover:underline'
+          >
+            NewAPI
+          </a>{' '}
+          © {currentYear}{' '}
+          <a
+            href='https://github.com/QuantumNous'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='hover:text-foreground hover:underline'
+          >
+            QuantumNous
+          </a>{' '}
+          • {t('Based on')}{' '}
+          <a
+            href='https://github.com/songquanpeng/one-api'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='hover:text-foreground hover:underline'
+          >
+            One API
+          </a>{' '}
+          © 2023{' '}
+          <a
+            href='https://github.com/songquanpeng'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='hover:text-foreground hover:underline'
+          >
+            JustSong
+          </a>
+        </p>
+        <p className='flex items-center gap-2'>
+          <a
+            href='https://github.com/QuantumNous/new-api/blob/main/LICENSE'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='hover:text-foreground hover:underline'
+          >
+            {t('AGPL v3.0 License')}
+          </a>
+          <span>•</span>
+          <a
+            href='https://github.com/QuantumNous/new-api'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='text-primary hover:underline'
+          >
+            {t('Repository')}
+          </a>
+        </p>
       </div>
-    </div>
+    </footer>
   )
 }
 
@@ -142,9 +124,11 @@ export function About() {
   if (!hasContent) {
     return (
       <PublicLayout showMainContainer={false}>
-        <AboutSection3 />
-        <div className='border-t border-border/40 bg-background py-8'>
-          <EmptyAboutState />
+        <div className='min-h-[calc(100vh-3.5rem)] flex flex-col justify-between bg-background'>
+          <div className='py-4 sm:py-6'>
+            <AboutSection3 />
+          </div>
+          <ProjectAttributionFooter />
         </div>
       </PublicLayout>
     )
