@@ -61,6 +61,12 @@ export interface PublicHeaderProps {
   showNavigation?: boolean
   showAuthButtons?: boolean
   showNotifications?: boolean
+  /**
+   * Render transparently with light text while at the top of the page, for
+   * placement over dark hero media (e.g. the landing video). Falls back to the
+   * standard frosted style once scrolled or when the mobile menu is open.
+   */
+  overlay?: boolean
   className?: string
 }
 
@@ -112,7 +118,20 @@ export function PublicHeader(props: PublicHeaderProps) {
   if (customLogo) logoContent = customLogo
   if (loading) logoContent = <Skeleton className='size-full rounded-lg' />
 
-  let authContent: ReactNode = <AuthButtons />
+  const isTransparent = !!props.overlay && !scrolled && !mobileOpen
+  const authTone = isTransparent ? 'overlay' : 'default'
+
+  let navLinkIdleClass =
+    'text-muted-foreground hover:text-foreground hover:bg-muted/30'
+  let navLinkActiveClass = 'text-foreground font-semibold bg-muted/60'
+  let dividerClass = 'bg-border/40'
+  if (isTransparent) {
+    navLinkIdleClass = 'text-white/75 hover:text-white hover:bg-white/10'
+    navLinkActiveClass = 'text-white font-semibold bg-white/15'
+    dividerClass = 'bg-white/25'
+  }
+
+  let authContent: ReactNode = <AuthButtons tone={authTone} />
   if (isAuthenticated) authContent = <ProfileDropdown />
   if (loading) authContent = <Skeleton className='h-9 w-40 rounded-full' />
 
@@ -204,11 +223,14 @@ export function PublicHeader(props: PublicHeaderProps) {
           )}
         >
           <nav
+            data-transparent={isTransparent || undefined}
             className={cn(
               'flex items-center justify-between gap-2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
               scrolled
                 ? 'bg-background/80 ring-border/60 h-12 rounded-full pr-1.5 pl-4 shadow-[0_2px_16px_-6px_rgba(0,0,0,0.08),0_0_0_0.5px_rgba(0,0,0,0.02)] ring-[0.5px] backdrop-blur-2xl dark:shadow-[0_2px_16px_-6px_rgba(0,0,0,0.4)]'
-                : 'h-16 px-2'
+                : 'h-16 px-2',
+              isTransparent &&
+                'text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.45)]'
             )}
           >
             {/* Logo */}
@@ -250,7 +272,8 @@ export function PublicHeader(props: PublicHeaderProps) {
                       tabIndex={link.disabled ? -1 : undefined}
                       onClick={(event) => handleNavLinkClick(event, link)}
                       className={cn(
-                        'text-muted-foreground hover:text-foreground whitespace-nowrap shrink-0 rounded-full px-3 py-1.5 text-xs sm:text-sm font-medium transition-colors duration-200',
+                        'whitespace-nowrap shrink-0 rounded-full px-3 py-1.5 text-xs sm:text-sm font-medium transition-colors duration-200',
+                        navLinkIdleClass,
                         link.disabled && 'pointer-events-none opacity-50'
                       )}
                     >
@@ -267,9 +290,7 @@ export function PublicHeader(props: PublicHeaderProps) {
                     onClick={(event) => handleNavLinkClick(event, link)}
                     className={cn(
                       'whitespace-nowrap shrink-0 rounded-full px-3 py-1.5 text-xs sm:text-sm font-medium transition-colors duration-200',
-                      isActive
-                        ? 'text-foreground font-semibold bg-muted/60'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/30',
+                      isActive ? navLinkActiveClass : navLinkIdleClass,
                       link.disabled && 'pointer-events-none opacity-50'
                     )}
                   >
@@ -281,7 +302,7 @@ export function PublicHeader(props: PublicHeaderProps) {
               {(showLanguageSwitcher ||
                 showThemeSwitch ||
                 showNotifications) && (
-                <div className='bg-border/40 mx-2 h-4 w-px' />
+                <div className={cn('mx-2 h-4 w-px', dividerClass)} />
               )}
 
               {showLanguageSwitcher && <LanguageSwitcher />}
@@ -301,7 +322,7 @@ export function PublicHeader(props: PublicHeaderProps) {
 
               {showAuthButtons && (
                 <>
-                  <div className='bg-border/40 mx-1 h-4 w-px' />
+                  <div className={cn('mx-1 h-4 w-px', dividerClass)} />
                   {authContent}
                 </>
               )}
@@ -314,7 +335,11 @@ export function PublicHeader(props: PublicHeaderProps) {
                 isAuthenticated ? (
                   <ProfileDropdown />
                 ) : (
-                  <AuthButtons compact className='gap-1.5' />
+                  <AuthButtons
+                    compact
+                    tone={authTone}
+                    className='hidden gap-1.5 sm:flex'
+                  />
                 )
               )}
               <Button
@@ -324,6 +349,8 @@ export function PublicHeader(props: PublicHeaderProps) {
                 className='size-9'
                 onClick={() => setMobileOpen((v) => !v)}
                 aria-label={t('Toggle navigation menu')}
+                aria-expanded={mobileOpen}
+                aria-controls='public-header-mobile-menu'
               >
                 <div className='relative size-4'>
                   <span
@@ -352,15 +379,20 @@ export function PublicHeader(props: PublicHeaderProps) {
       </header>
 
       {/* Mobile full-screen overlay */}
+      {/* z-[45]: above full-screen page shells (e.g. the landing viewport, z-40), below the header (z-50). */}
       <div
+        id='public-header-mobile-menu'
+        data-slot='public-header-mobile-menu'
+        aria-hidden={!mobileOpen}
+        inert={!mobileOpen}
         className={cn(
-          'bg-background/98 fixed inset-0 z-40 backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:pointer-events-none lg:hidden',
+          'bg-background/98 text-foreground fixed inset-0 z-[45] backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:pointer-events-none lg:hidden',
           mobileOpen
             ? 'pointer-events-auto opacity-100'
             : 'pointer-events-none opacity-0'
         )}
       >
-        <div className='flex h-full flex-col justify-between px-8 pt-20 pb-10'>
+        <div className='flex h-full flex-col justify-between overflow-y-auto px-8 pt-32 pb-10'>
           <nav className='flex flex-col gap-1'>
             {links.map((link, i) => {
               const isActive = pathname === link.href
@@ -416,14 +448,31 @@ export function PublicHeader(props: PublicHeaderProps) {
             )}
             style={{ transitionDelay: mobileOpen ? '250ms' : '0ms' }}
           >
-            {showAuthButtons && (
+            {(showLanguageSwitcher || showThemeSwitch) && (
+              <div className='border-border/60 flex items-center justify-between border-t pt-4'>
+                <span className='text-muted-foreground text-sm'>
+                  {t('Preferences')}
+                </span>
+                <div className='flex items-center gap-1'>
+                  {showLanguageSwitcher && <LanguageSwitcher />}
+                  {showThemeSwitch && <ThemeSwitch />}
+                </div>
+              </div>
+            )}
+            {showAuthButtons && isAuthenticated && (
               <Link
-                to={isAuthenticated ? '/dashboard' : '/sign-in'}
+                to='/dashboard'
                 onClick={() => setMobileOpen(false)}
                 className='bg-foreground text-background inline-flex h-10 items-center justify-center rounded-lg text-sm font-medium transition-opacity hover:opacity-90 active:opacity-80'
               >
-                {isAuthenticated ? t('Go to Dashboard') : t('Sign in')}
+                {t('Go to Dashboard')}
               </Link>
+            )}
+            {showAuthButtons && !isAuthenticated && (
+              <AuthButtons
+                className='[&>a]:flex-1'
+                onNavigate={() => setMobileOpen(false)}
+              />
             )}
           </div>
         </div>

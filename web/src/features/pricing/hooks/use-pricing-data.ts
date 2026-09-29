@@ -50,7 +50,7 @@ export function usePricingData(enabled = true) {
   )
 
   const vendors = useMemo(() => {
-    const existing = data?.vendors ?? []
+    const existing = Array.isArray(data?.vendors) ? data.vendors : []
     const existingNames = new Set(existing.map((v) => v.name.toLowerCase()))
     const additional = DEFAULT_VENDORS.filter(
       (v) => !existingNames.has(v.name.toLowerCase())
@@ -60,7 +60,8 @@ export function usePricingData(enabled = true) {
 
   const models = useMemo(() => {
     const vendorMap = new Map(vendors.map((v) => [v.id, v]))
-    const serverModels = (data?.data ?? []).map((model) => {
+    const rawData = Array.isArray(data?.data) ? data.data : []
+    const serverModels = rawData.map((model) => {
       const vendor = model.vendor_id
         ? vendorMap.get(model.vendor_id)
         : undefined

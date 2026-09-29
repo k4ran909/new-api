@@ -22,8 +22,8 @@ import {
   createRouter,
   RouterProvider,
 } from '@tanstack/react-router'
-import { cleanup, render, screen } from '@testing-library/react'
-import { afterEach, describe, expect, it } from 'vitest'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { AuthButtons, type AuthButtonsProps } from '../auth-buttons'
 
@@ -71,5 +71,14 @@ describe('AuthButtons', () => {
     const signUp = screen.getByRole('link', { name: 'Sign up' })
     expect(signIn).toHaveClass('h-7')
     expect(signUp).toHaveClass('h-7')
+  })
+
+  it('calls onNavigate when a link is clicked so a mobile menu can close', async () => {
+    const onNavigate = vi.fn()
+    await renderAuthButtons({ onNavigate })
+
+    fireEvent.click(await screen.findByRole('link', { name: 'Sign in' }))
+
+    expect(onNavigate).toHaveBeenCalledTimes(1)
   })
 })

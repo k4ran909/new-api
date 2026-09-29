@@ -28,6 +28,8 @@ export interface AuthButtonsProps {
   /** Smaller buttons for tight mobile headers. */
   compact?: boolean
   className?: string
+  /** Called when either link is activated (e.g. to close a mobile menu). */
+  onNavigate?: () => void
 }
 
 /**
@@ -46,6 +48,7 @@ export function AuthButtons(props: AuthButtonsProps) {
     >
       <Link
         to='/sign-in'
+        onClick={props.onNavigate}
         className={cn(
           buttonVariants({ variant: 'outline', size }),
           'rounded-full px-4 font-medium',
@@ -57,6 +60,7 @@ export function AuthButtons(props: AuthButtonsProps) {
       </Link>
       <Link
         to='/sign-up'
+        onClick={props.onNavigate}
         className={cn(
           buttonVariants({ size }),
           'hover:bg-primary/85 rounded-full px-4 font-semibold shadow-sm'
