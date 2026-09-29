@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { TimelineContent } from '@/components/ui/timeline-animation'
 import { VerticalCutReveal } from '@/components/ui/vertical-cut-reveal'
 import { ArrowRight } from 'lucide-react'
@@ -46,7 +47,7 @@ export function AboutSection3() {
     <section className="w-full space-y-8" ref={heroRef}>
       {/* Header bar: Badge & Social links */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/40">
-        <div className="flex items-center gap-3">
+        <div className="flex min-w-0 flex-wrap items-center gap-3">
           <TimelineContent
             as="div"
             animationNum={0}
@@ -63,7 +64,7 @@ export function AboutSection3() {
           </span>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-2.5">
+        <div className="flex shrink-0 flex-wrap items-center gap-2 sm:gap-2.5">
           <TimelineContent
             as="a"
             animationNum={0}
@@ -161,7 +162,7 @@ export function AboutSection3() {
       </TimelineContent>
 
       {/* Stats Ribbon */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-5 sm:p-6 rounded-2xl bg-card/60 backdrop-blur-md border border-border/60 shadow-sm">
+      <div className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-4 p-5 sm:p-6 rounded-2xl bg-card/60 backdrop-blur-md border border-border/60 shadow-sm">
         <TimelineContent
           as="div"
           animationNum={5}
@@ -180,7 +181,7 @@ export function AboutSection3() {
           animationNum={6}
           timelineRef={heroRef}
           customVariants={revealVariants}
-          className="flex flex-col items-center sm:items-start p-2 border-l border-border/40"
+          className="flex flex-col items-center sm:items-start p-2"
         >
           <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-red-500 tracking-tight">3M+</span>
           <span className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider mt-1">
@@ -193,7 +194,7 @@ export function AboutSection3() {
           animationNum={7}
           timelineRef={heroRef}
           customVariants={revealVariants}
-          className="flex flex-col items-center sm:items-start p-2 border-t md:border-t-0 md:border-l border-border/40"
+          className="flex flex-col items-center sm:items-start p-2"
         >
           <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-red-500 tracking-tight">100+</span>
           <span className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider mt-1">
@@ -206,7 +207,7 @@ export function AboutSection3() {
           animationNum={8}
           timelineRef={heroRef}
           customVariants={revealVariants}
-          className="flex flex-col items-center sm:items-start p-2 border-t md:border-t-0 border-l border-border/40"
+          className="flex flex-col items-center sm:items-start p-2"
         >
           <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-red-500 tracking-tight">30%</span>
           <span className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider mt-1">
@@ -295,14 +296,23 @@ export function AboutSection3() {
             </div>
 
             <TimelineContent
-              as="button"
+              as="div"
               animationNum={15}
               timelineRef={heroRef}
               customVariants={revealVariants}
-              className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-semibold text-sm transition-all duration-200 shadow-md hover:shadow-red-500/25 hover:scale-[1.02] active:scale-[0.98] cursor-pointer group"
+              className="w-full"
             >
-              <span>LET'S COLLABORATE</span>
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <Button
+                type="button"
+                size="lg"
+                className="h-11 w-full gap-2 rounded-xl bg-red-600 px-6 text-sm font-semibold text-white shadow-md hover:bg-red-500"
+              >
+                <span>LET'S COLLABORATE</span>
+                <ArrowRight
+                  aria-hidden="true"
+                  className="transition-transform group-hover/button:translate-x-1"
+                />
+              </Button>
             </TimelineContent>
           </div>
         </div>

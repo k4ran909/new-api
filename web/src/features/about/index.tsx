@@ -136,7 +136,7 @@ export function About() {
                 'linear-gradient(to bottom, black 40%, transparent 100%)',
             }}
           />
-          <div className='relative mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex-1'>
+          <div className='relative mx-auto w-full max-w-[1240px] flex-1 px-4 pt-24 pb-10 sm:px-6 sm:pt-28 sm:pb-12 lg:px-8'>
             <AboutSection3 />
           </div>
           <ProjectAttributionFooter />
