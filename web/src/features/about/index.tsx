@@ -33,8 +33,8 @@ function ProjectAttributionFooter() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className='border-t border-border/40 bg-background/80 py-5 text-xs text-muted-foreground'>
-      <div className='mx-auto max-w-5xl px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left'>
+    <footer className='border-t border-border/40 bg-background/80 py-6 text-xs text-muted-foreground'>
+      <div className='mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left'>
         <p>
           <a
             href='https://github.com/QuantumNous/new-api'
@@ -124,8 +124,19 @@ export function About() {
   if (!hasContent) {
     return (
       <PublicLayout showMainContainer={false}>
-        <div className='min-h-[calc(100vh-3.5rem)] flex flex-col justify-between bg-background'>
-          <div className='flex-1 flex items-center justify-center py-6 sm:py-10 px-4'>
+        <div className='relative min-h-[calc(100vh-3.5rem)] flex flex-col justify-between bg-background'>
+          <div
+            aria-hidden
+            className='pointer-events-none absolute inset-x-0 top-0 h-[480px] opacity-25 dark:opacity-15'
+            style={{
+              background:
+                'radial-gradient(ellipse 60% 40% at 50% 0%, oklch(0.72 0.18 250 / 60%) 0%, transparent 70%)',
+              maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
+              WebkitMaskImage:
+                'linear-gradient(to bottom, black 40%, transparent 100%)',
+            }}
+          />
+          <div className='relative mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex-1'>
             <AboutSection3 />
           </div>
           <ProjectAttributionFooter />
