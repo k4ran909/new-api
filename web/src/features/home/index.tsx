@@ -18,7 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import { useNavigate } from '@tanstack/react-router'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 import { useSystemConfig } from '@/hooks/use-system-config'
@@ -33,12 +33,10 @@ export function Home() {
   const { systemName } = useSystemConfig()
 
   const [menuOpen, setMenuOpen] = useState(false)
-  const [videoModalOpen, setVideoModalOpen] = useState(false)
   const [contactModalOpen, setContactModalOpen] = useState(false)
   const [isMotionPending, setIsMotionPending] = useState(true)
 
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' })
-  const modalVideoRef = useRef<HTMLVideoElement>(null)
 
   // Motion choreography
   useEffect(() => {
@@ -49,48 +47,23 @@ export function Home() {
 
     const timer = setTimeout(() => {
       setIsMotionPending(false)
-    }, 3500)
+    }, 1600)
 
     return () => clearTimeout(timer)
-  }, [])
-
-  const handleCardAnimationEnd = useCallback((e: React.AnimationEvent) => {
-    if (e.animationName === 'v-entrance-card') {
-      setIsMotionPending(false)
-    }
-  }, [])
-
-  // Video modal handling
-  const openVideoModal = useCallback(() => {
-    setVideoModalOpen(true)
-    setTimeout(() => {
-      if (modalVideoRef.current) {
-        modalVideoRef.current.currentTime = 0
-        void modalVideoRef.current.play().catch(() => {})
-      }
-    }, 50)
-  }, [])
-
-  const closeVideoModal = useCallback(() => {
-    setVideoModalOpen(false)
-    if (modalVideoRef.current) {
-      modalVideoRef.current.pause()
-    }
   }, [])
 
   // Keyboard navigation & Escape dismiss
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        if (videoModalOpen) closeVideoModal()
-        else if (contactModalOpen) setContactModalOpen(false)
+        if (contactModalOpen) setContactModalOpen(false)
         else if (menuOpen) setMenuOpen(false)
       }
     }
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [closeVideoModal, contactModalOpen, menuOpen, videoModalOpen])
+  }, [contactModalOpen, menuOpen])
 
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -290,93 +263,8 @@ export function Home() {
               </span>
             </button>
           </div>
-
-          <article className="demo-card" onAnimationEnd={handleCardAnimationEnd}>
-            <div className="demo-visual" onClick={openVideoModal}>
-              <img
-                className="thumbnail"
-                src="/assets/watch-demo-thumbnail.png"
-                alt="Abstract red and blue smoke"
-              />
-              <button
-                className="play"
-                type="button"
-                aria-label="Play demo"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  openVideoModal()
-                }}
-              >
-                <svg width="12" height="14" viewBox="0 0 12 14" fill="#fff">
-                  <path d="M1.5 2.15C1.5 1.36 2.37 0.88 3.03 1.3l7.63 4.85c.63.4.63 1.3 0 1.7L3.03 12.7C2.37 13.12 1.5 12.64 1.5 11.85V2.15z" />
-                </svg>
-              </button>
-            </div>
-
-            <button
-              className="watch-button"
-              type="button"
-              onClick={openVideoModal}
-            >
-              <span className="watch-label">Watch Demo</span>
-            </button>
-          </article>
         </section>
       </section>
-
-      {/* Video Modal Player */}
-      {videoModalOpen && (
-        <div
-          className="vantage-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Platform Demo Video"
-        >
-          <div className="vantage-modal-backdrop" onClick={closeVideoModal} />
-          <div className="vantage-modal-container vantage-video-wrap">
-            <div className="vantage-modal-header">
-              <div className="vantage-modal-title-wrap">
-                <span className="vantage-modal-status-dot" />
-                <span className="vantage-modal-title">
-                  {systemName || 'Vantage'} Platform Overview
-                </span>
-              </div>
-              <button
-                className="vantage-modal-close"
-                type="button"
-                aria-label="Close demo video"
-                onClick={closeVideoModal}
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                >
-                  <path d="M2 2l10 10M12 2L2 12" />
-                </svg>
-              </button>
-            </div>
-            <div className="vantage-player-box">
-              <video
-                ref={modalVideoRef}
-                className="vantage-video-player"
-                controls
-                playsInline
-                preload="auto"
-              >
-                <source
-                  src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260808_064556_051587f1-74a1-4336-8c05-4dde3594ed05.mp4"
-                  type="video/mp4"
-                />
-              </video>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Contact Modal */}
       {contactModalOpen && (
