@@ -57,7 +57,7 @@ const CALCULATOR_MODELS: PricingModelConfig[] = [
 export function CostCalculator() {
   const { t } = useTranslation()
   const { systemName } = useSystemConfig()
-  const brandName = systemName || 'TokenRouter'
+  const brandName = systemName || 'FLUXrouter'
   const [selectedModelId, setSelectedModelId] = useState('deepseek-v3')
   const [inputTokensM, setInputTokensM] = useState(50) // in Millions
   const [outputTokensM, setOutputTokensM] = useState(25) // in Millions
@@ -224,7 +224,7 @@ export function CostCalculator() {
                 </span>
               </div>
 
-              {/* Direct Cost vs TokenRouter Cost */}
+              {/* Direct Cost vs FLUXrouter Cost */}
               <div className='space-y-3 mb-6'>
                 <div className='flex items-center justify-between p-3.5 rounded-2xl bg-muted/40 border border-border/70'>
                   <div>

@@ -15,10 +15,10 @@ export function Faq() {
   const { t } = useTranslation()
   const { systemName } = useSystemConfig()
   const { status } = useStatus()
-  const brandName = systemName || 'TokenRouter'
+  const brandName = systemName || 'FLUXrouter'
   const docsUrl = (status?.docs_link as string | undefined) || 'https://docs.newapi.pro'
 
-  const [openIndex, setOpenIndex] = useState<number | null>(0) // Default first item open like TokenRouter
+  const [openIndex, setOpenIndex] = useState<number | null>(0) // Default first item open like FLUXrouter
 
   const FAQ_ITEMS: FaqItem[] = [
     {

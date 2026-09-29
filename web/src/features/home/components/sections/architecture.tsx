@@ -28,7 +28,7 @@ export function Architecture(props: ArchitectureProps) {
   const { isAuthenticated } = props
   const { t } = useTranslation()
   const { systemName } = useSystemConfig()
-  const brandName = systemName || 'TokenRouter'
+  const brandName = systemName || 'FLUXrouter'
 
   return (
     <section className='relative z-10 py-20 md:py-28 overflow-hidden'>
@@ -82,7 +82,7 @@ export function Architecture(props: ArchitectureProps) {
               </div>
             </div>
 
-            {/* Center: TokenRouter Hub Node */}
+            {/* Center: FLUXrouter Hub Node */}
             <div className='relative shrink-0 my-3 lg:my-0 group'>
               <div className='absolute -inset-3 rounded-full bg-[#0086ff]/25 blur-lg animate-pulse' />
               <div className='relative flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-[#0086ff] text-white shadow-lg shadow-[#0086ff]/30 border border-white/25'>

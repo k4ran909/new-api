@@ -12,7 +12,7 @@ export function CTA(props: CTAProps) {
   const { isAuthenticated } = props
   const { t } = useTranslation()
   const { systemName } = useSystemConfig()
-  const brandName = systemName || 'TokenRouter'
+  const brandName = systemName || 'FLUXrouter'
 
   return (
     <section className='relative z-10 py-24 md:py-32 text-center overflow-hidden border-t border-border/40'>

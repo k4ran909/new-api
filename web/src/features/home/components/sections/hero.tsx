@@ -80,7 +80,7 @@ export function Hero(props: HeroProps) {
   const { t } = useTranslation()
   const { status } = useStatus()
   const { systemName } = useSystemConfig()
-  const brandName = systemName || 'TokenRouter'
+  const brandName = systemName || 'FLUXrouter'
   const docsUrl =
     (status?.docs_link as string | undefined) || 'https://docs.newapi.pro'
 
@@ -94,7 +94,7 @@ export function Hero(props: HeroProps) {
     if (typeof window !== 'undefined') {
       return `${window.location.origin}/v1`
     }
-    return 'https://api.tokenrouter.com/v1'
+    return 'https://api.fluxrouter.com/v1'
   }, [])
 
   const handleCopyEndpoint = async () => {

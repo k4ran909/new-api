@@ -9,7 +9,7 @@ type TabKey = 'python' | 'typescript' | 'curl' | 'cursor' | 'cherry'
 export function CodePreview() {
   const { t } = useTranslation()
   const { systemName } = useSystemConfig()
-  const brandName = systemName || 'TokenRouter'
+  const brandName = systemName || 'FLUXrouter'
   const [activeTab, setActiveTab] = useState<TabKey>('python')
   const [copied, setCopied] = useState(false)
 
@@ -17,7 +17,7 @@ export function CodePreview() {
     if (typeof window !== 'undefined') {
       return `${window.location.origin}/v1`
     }
-    return 'https://api.tokenrouter.com/v1'
+    return 'https://api.fluxrouter.com/v1'
   }, [])
 
   const TABS: { id: TabKey; label: string; icon: string }[] = [

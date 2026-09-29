@@ -300,7 +300,7 @@ WHERE status IN ('pending', 'processing');
 
 #### Best Practice Architecture:
 - **Client to Gateway**: Use short-lived (15m) JWTs with refresh token rotation + PKCE.
-- **Gateway to Downstream**: TokenRouter validates the token once at the edge, hydrates tenant headers, and forwards high-speed gRPC requests internally.`,
+- **Gateway to Downstream**: FLUXrouter validates the token once at the edge, hydrates tenant headers, and forwards high-speed gRPC requests internally.`,
     },
   },
   {
@@ -328,7 +328,7 @@ export function LivePlayground(props: LivePlaygroundProps) {
   const { isAuthenticated } = props
   const { t } = useTranslation()
   const { systemName } = useSystemConfig()
-  const brandName = systemName || 'TokenRouter'
+  const brandName = systemName || 'FLUXrouter'
   const [selectedModelId, setSelectedModelId] = useState('deepseek-chat')
   const [activePresetId, setActivePresetId] = useState('rate-limiter')
   const [inputPrompt, setInputPrompt] = useState(PRESETS[0].prompt)

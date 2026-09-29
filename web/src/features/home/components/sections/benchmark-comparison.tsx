@@ -139,7 +139,7 @@ const COMPARISON_ROWS: ComparisonRow[] = [
 export function BenchmarkComparison() {
   const { t } = useTranslation()
   const { systemName } = useSystemConfig()
-  const brandName = systemName || 'TokenRouter'
+  const brandName = systemName || 'FLUXrouter'
 
   return (
     <section className='relative z-10 py-20 md:py-28 overflow-hidden'>
@@ -210,7 +210,7 @@ export function BenchmarkComparison() {
                       </div>
                     </td>
 
-                    {/* TokenRouter column (highlighted) */}
+                    {/* FLUXrouter column (highlighted) */}
                     <td className='p-5 sm:p-6 bg-[#0086ff]/5 border-x border-[#0086ff]/20'>
                       <div className='flex items-start gap-2.5'>
                         <div className='size-5 rounded-full bg-[#0086ff]/15 flex items-center justify-center shrink-0 mt-0.5 text-[#0086ff]'>
